@@ -1,5 +1,6 @@
 import axios from "axios";
 import { server } from "../../server";
+import Cookies from "js-cookie";
 
 // load user
 export const loadUser = () => async (dispatch) => {
@@ -7,9 +8,14 @@ export const loadUser = () => async (dispatch) => {
     dispatch({
       type: "LoadUserRequest",
     });
+
+    const token = Cookies.get("token");
     const { data } = await axios.get(`${server}/user/getuser`, {
-      withCredentials: true,
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
     });
+
     dispatch({
       type: "LoadUserSuccess",
       payload: data.user,

@@ -1,11 +1,15 @@
 import axios from "axios";
 import { useEffect } from "react";
 import { useState } from "react";
-import { useParams } from "react-router-dom";
+import Cookies from "js-cookie";
+import { useLocation } from "react-router-dom";
 import { server } from "../server";
 
 const ActivationPage = () => {
-  const { activation_token } = useParams();
+  const location = useLocation();
+  const searchParams = new URLSearchParams(location.search);
+  const activation_token = searchParams.get("token");
+
   const [error, setError] = useState(false);
 
   useEffect(() => {
@@ -16,7 +20,8 @@ const ActivationPage = () => {
             activation_token,
           })
           .then((res) => {
-            console.log(res);
+            const { token } = res.data; 
+            Cookies.set("token", token);
           })
           .catch((err) => {
             setError(true);

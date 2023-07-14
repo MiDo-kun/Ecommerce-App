@@ -58,10 +58,11 @@ const Header = ({ activeHeading }) => {
         <div className="hidden 800px:h-[50px] 800px:my-[20px] 800px:flex items-center justify-between">
           <div>
             <Link to="/">
-              <img
+              {/* <img
                 src="https://shopo.quomodothemes.website/assets/images/logo.svg"
                 alt=""
-              />
+              /> */}
+              <h1>Logo Here</h1>
             </Link>
           </div>
           {/* search box */}
@@ -99,9 +100,9 @@ const Header = ({ activeHeading }) => {
           </div>
 
           <div className={`${styles.button}`}>
-            <Link to={`${isSeller ? "/dashboard" : "/shop-create"}`}>
+            <Link to={`${isSeller ? "/dashboard" : "/shop-login"}`}>
               <h1 className="text-[#fff] flex items-center">
-                {isSeller ? "Go Dashboard" : "Become Seller"}{" "}
+                {isSeller ? "Go Dashboard" : "Shop Login"}{" "}
                 <IoIosArrowForward className="ml-1" />
               </h1>
             </Link>
@@ -301,8 +302,9 @@ const Header = ({ activeHeading }) => {
               <Navbar active={activeHeading} />
               <div className={`${styles.button} ml-4 !rounded-[4px]`}>
                 <Link to="/shop-create">
-                  <h1 className="text-[#fff] flex items-center">
-                    Become Seller <IoIosArrowForward className="ml-1" />
+                  <h1 className="text-[#fff] flex items-center px-2">
+                    {/* Become Seller <IoIosArrowForward className="ml-1" /> */}
+                    Shop Login
                   </h1>
                 </Link>
               </div>

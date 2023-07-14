@@ -1,10 +1,11 @@
-import {   useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import styles from "../../styles/styles";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { server } from "../../server";
 import { toast } from "react-toastify";
+import Cookies from "js-cookie";
 
 const ShopLogin = () => {
   const navigate = useNavigate();
@@ -15,6 +16,7 @@ const ShopLogin = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    const token = Cookies.get("seller_token");
     await axios
       .post(
         `${server}/shop/login-shop`,
@@ -22,19 +24,21 @@ const ShopLogin = () => {
           email,
           password,
         },
-        { withCredentials: true }
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
       )
       .then((res) => {
         toast.success("Login Success!");
         navigate("/dashboard");
-        window.location.reload(true); 
+        window.location.reload(true);
       })
       .catch((err) => {
         toast.error(err.response.data.message);
       });
-  };
-
-  return (
+  }; return (
     <div className="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
         <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
@@ -128,10 +132,16 @@ const ShopLogin = () => {
               </button>
             </div>
             <div className={`${styles.noramlFlex} w-full`}>
-              <h4>Not have any account?</h4>
+              {/* <h4>Test account</h4> */}
+              <ul>
+                <li><strong>Email: </strong> admin@gmail.com</li>
+                <li><strong>Password: </strong> admin</li>
+              </ul>
+              {/* <h4>Not have any account?</h4>
+
               <Link to="/shop-create" className="text-blue-600 pl-2">
                 Sign Up
-              </Link>
+              </Link> */}
             </div>
           </form>
         </div>
