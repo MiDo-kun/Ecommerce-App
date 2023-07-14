@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from "react";
+import React from 'react';
+import { useEffect, useState } from "react";
 import "./App.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import {
@@ -21,7 +22,7 @@ import {
   OrderDetailsPage,
   TrackOrderPage,
   UserInbox,
-} from "./routes/Routes.js";
+} from "./routes/Routes.jsx";
 import {
   ShopDashboardPage,
   ShopCreateProduct,
@@ -52,7 +53,7 @@ import Store from "./redux/store";
 import { loadSeller, loadUser } from "./redux/actions/user";
 import ProtectedRoute from "./routes/ProtectedRoute";
 import ProtectedAdminRoute from "./routes/ProtectedAdminRoute";
-import { ShopHomePage } from "./ShopRoutes.js";
+import { ShopHomePage } from "./ShopRoutes.jsx";
 import SellerProtectedRoute from "./routes/SellerProtectedRoute";
 import { getAllProducts } from "./redux/actions/product";
 import { getAllEvents } from "./redux/actions/event";
@@ -96,10 +97,12 @@ const App = () => {
         <Route path="/" element={<HomePage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/sign-up" element={<SignupPage />} />
+        
         <Route
           path="/activation/:activation_token"
           element={<ActivationPage />}
         />
+
         <Route
           path="/seller/activation/:activation_token"
           element={<SellerActivationPage />}
@@ -292,7 +295,7 @@ const App = () => {
             </ProtectedAdminRoute>
           }
         />
-         <Route
+        <Route
           path="/admin-products"
           element={
             <ProtectedAdminRoute>
@@ -300,7 +303,7 @@ const App = () => {
             </ProtectedAdminRoute>
           }
         />
-         <Route
+        <Route
           path="/admin-events"
           element={
             <ProtectedAdminRoute>
@@ -308,7 +311,7 @@ const App = () => {
             </ProtectedAdminRoute>
           }
         />
-         <Route
+        <Route
           path="/admin-withdraw-request"
           element={
             <ProtectedAdminRoute>

@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from "react";
+import   { useEffect, useState } from "react";
 import styles from "../../styles/styles";
 import { BsFillBagFill } from "react-icons/bs";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import { useDispatch, useSelector } from "redux";
+import { useDispatch, useSelector } from "react-redux";
 import { getAllOrdersOfShop } from "../../redux/actions/order";
 import { backend_url, server } from "../../server";
 import axios from "axios";

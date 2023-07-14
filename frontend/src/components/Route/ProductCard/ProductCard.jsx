@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import {
   AiFillHeart,
   AiFillStar,
@@ -10,7 +10,7 @@ import {
 import { Link } from "react-router-dom";
 import { backend_url } from "../../../server";
 import styles from "../../../styles/styles";
-import { useDispatch, useSelector } from "redux";
+import { useDispatch, useSelector } from "react-redux";
 import ProductDetailsCard from "../ProductDetailsCard/ProductDetailsCard";
 import {
   addToWishlist,

@@ -1,6 +1,6 @@
-import React, { useEffect, useRef, useState } from "react";
+import   { useEffect, useRef, useState } from "react";
 import Header from "../components/Layout/Header";
-import { useSelector } from "redux";
+import { useSelector } from "react-redux";
 import socketIO from "socket.io-client";
 import { format } from "timeago.js";
 import { backend_url, server } from "../server";

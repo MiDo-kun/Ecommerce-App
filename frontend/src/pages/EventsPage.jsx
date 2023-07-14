@@ -1,5 +1,5 @@
-import React from "react";
-import { useSelector } from "redux";
+ 
+import { useSelector } from "react-redux";
 import EventCard from "../components/Events/EventCard";
 import Header from "../components/Layout/Header";
 import Loader from "../components/Layout/Loader";

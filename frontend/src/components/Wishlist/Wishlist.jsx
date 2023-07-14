@@ -1,11 +1,11 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { RxCross1 } from "react-icons/rx";
 import { IoBagHandleOutline } from "react-icons/io5";
 import { BsCartPlus } from "react-icons/bs";
 import styles from "../../styles/styles";
 import { Link } from "react-router-dom";
 import { AiOutlineHeart } from "react-icons/ai";
-import { useDispatch, useSelector } from "redux";
+import { useDispatch, useSelector } from "react-redux";
 import { removeFromWishlist } from "../../redux/actions/wishlist";
 import { backend_url } from "../../server";
 import { addTocart } from "../../redux/actions/cart";
@@ -19,7 +19,7 @@ const Wishlist = ({ setOpenWishlist }) => {
   };
 
   const addToCartHandler = (data) => {
-    const newData = {...data, qty:1};
+    const newData = { ...data, qty: 1 };
     dispatch(addTocart(newData));
     setOpenWishlist(false);
   }
@@ -72,7 +72,7 @@ const Wishlist = ({ setOpenWishlist }) => {
   );
 };
 
-const CartSingle = ({ data,removeFromWishlistHandler,addToCartHandler }) => {
+const CartSingle = ({ data, removeFromWishlistHandler, addToCartHandler }) => {
   const [value, setValue] = useState(1);
   const totalPrice = data.discountPrice * value;
 
@@ -80,7 +80,7 @@ const CartSingle = ({ data,removeFromWishlistHandler,addToCartHandler }) => {
     <div className="border-b p-4">
       <div className="w-full 800px:flex items-center">
         <RxCross1 className="cursor-pointer 800px:mb-['unset'] 800px:ml-['unset'] mb-2 ml-2"
-        onClick={() => removeFromWishlistHandler(data)}
+          onClick={() => removeFromWishlistHandler(data)}
         />
         <img
           src={`${backend_url}${data?.images[0]}`}
@@ -96,7 +96,7 @@ const CartSingle = ({ data,removeFromWishlistHandler,addToCartHandler }) => {
         </div>
         <div>
           <BsCartPlus size={20} className="cursor-pointer" tile="Add to cart"
-           onClick={() => addToCartHandler(data)}
+            onClick={() => addToCartHandler(data)}
           />
         </div>
       </div>

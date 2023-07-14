@@ -1,8 +1,8 @@
 import axios from "axios";
-import React, { useRef, useState } from "react";
+import   { useRef, useState } from "react";
 import { useEffect } from "react";
 import { backend_url, server } from "../../server";
-import { useDispatch, useSelector } from "redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { AiOutlineArrowRight, AiOutlineSend } from "react-icons/ai";
 import styles from "../../styles/styles";
