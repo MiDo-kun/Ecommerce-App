@@ -1,16 +1,15 @@
- 
-import Header from '../components/Layout/Header'
-import Footer from '../components/Layout/Footer'
-import TrackOrder from "../components/Profile/TrackOrder";
+import Header from '../components/Layout/Header';
+import Footer from '../components/Layout/Footer';
+import TrackOrder from '../components/Profile/TrackOrder';
 
 const TrackOrderPage = () => {
   return (
     <div>
-        <Header />
-        <TrackOrder />
-        <Footer />
+      <Header />
+      <TrackOrder />
+      <Footer />
     </div>
-  )
-}
+  );
+};
 
-export default TrackOrderPage
+export default TrackOrderPage;

@@ -1,23 +1,23 @@
-import   { useState } from "react";
-import styles from "../../styles/styles";
-import { Country, State } from "country-state-city";
-import { useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
-import { useEffect } from "react";
-import axios from "axios";
-import { server } from "../../server";
-import { toast } from "react-toastify";
+import { useState } from 'react';
+import styles from '../../styles/styles';
+import { Country, State } from 'country-state-city';
+import { useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { useEffect } from 'react';
+import axios from 'axios';
+import { server } from '../../server';
+import { toast } from 'react-toastify';
 
 const Checkout = () => {
   const { user } = useSelector((state) => state.user);
   const { cart } = useSelector((state) => state.cart);
-  const [country, setCountry] = useState("");
-  const [city, setCity] = useState("");
+  const [country, setCountry] = useState('');
+  const [city, setCity] = useState('');
   const [userInfo, setUserInfo] = useState(false);
-  const [address1, setAddress1] = useState("");
-  const [address2, setAddress2] = useState("");
+  const [address1, setAddress1] = useState('');
+  const [address2, setAddress2] = useState('');
   const [zipCode, setZipCode] = useState(null);
-  const [couponCode, setCouponCode] = useState("");
+  const [couponCode, setCouponCode] = useState('');
   const [couponCodeData, setCouponCodeData] = useState(null);
   const [discountPrice, setDiscountPrice] = useState(null);
   const navigate = useNavigate();
@@ -27,36 +27,42 @@ const Checkout = () => {
   }, []);
 
   const paymentSubmit = () => {
-   if(address1 === "" || address2 === "" || zipCode === null || country === "" || city === ""){
-      toast.error("Please choose your delivery address!")
-   } else{
-    const shippingAddress = {
-      address1,
-      address2,
-      zipCode,
-      country,
-      city,
-    };
+    if (
+      address1 === '' ||
+      address2 === '' ||
+      zipCode === null ||
+      country === '' ||
+      city === ''
+    ) {
+      toast.error('Please choose your delivery address!');
+    } else {
+      const shippingAddress = {
+        address1,
+        address2,
+        zipCode,
+        country,
+        city,
+      };
 
-    const orderData = {
-      cart,
-      totalPrice,
-      subTotalPrice,
-      shipping,
-      discountPrice,
-      shippingAddress,
-      user,
+      const orderData = {
+        cart,
+        totalPrice,
+        subTotalPrice,
+        shipping,
+        discountPrice,
+        shippingAddress,
+        user,
+      };
+
+      // update local storage with the updated orders array
+      localStorage.setItem('latestOrder', JSON.stringify(orderData));
+      navigate('/payment');
     }
-
-    // update local storage with the updated orders array
-    localStorage.setItem("latestOrder", JSON.stringify(orderData));
-    navigate("/payment");
-   }
   };
 
   const subTotalPrice = cart.reduce(
     (acc, item) => acc + item.qty * item.discountPrice,
-    0
+    0,
   );
 
   // this is shipping cost variable
@@ -74,27 +80,27 @@ const Checkout = () => {
           cart && cart.filter((item) => item.shopId === shopId);
 
         if (isCouponValid.length === 0) {
-          toast.error("Coupon code is not valid for this shop");
-          setCouponCode("");
+          toast.error('Coupon code is not valid for this shop');
+          setCouponCode('');
         } else {
           const eligiblePrice = isCouponValid.reduce(
             (acc, item) => acc + item.qty * item.discountPrice,
-            0
+            0,
           );
           const discountPrice = (eligiblePrice * couponCodeValue) / 100;
           setDiscountPrice(discountPrice);
           setCouponCodeData(res.data.couponCode);
-          setCouponCode("");
+          setCouponCode('');
         }
       }
       if (res.data.couponCode === null) {
         toast.error("Coupon code doesn't exists!");
-        setCouponCode("");
+        setCouponCode('');
       }
     });
   };
 
-  const discountPercentenge = couponCodeData ? discountPrice : "";
+  const discountPercentenge = couponCodeData ? discountPrice : '';
 
   const totalPrice = couponCodeData
     ? (subTotalPrice + shipping - discountPercentenge).toFixed(2)
@@ -327,7 +333,7 @@ const CartData = ({
       <div className="flex justify-between border-b pb-3">
         <h3 className="text-[16px] font-[400] text-[#000000a4]">Discount:</h3>
         <h5 className="text-[18px] font-[600]">
-          - {discountPercentenge ? "$" + discountPercentenge.toString() : null}
+          - {discountPercentenge ? '$' + discountPercentenge.toString() : null}
         </h5>
       </div>
       <h5 className="text-[18px] font-[600] text-end pt-3">${totalPrice}</h5>

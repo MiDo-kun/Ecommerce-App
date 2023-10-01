@@ -1,46 +1,45 @@
-import {   useState } from "react";
-import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
-import styles from "../../styles/styles";
-import { Link, useNavigate } from "react-router-dom";
-import axios from "axios";
-import { server } from "../../server";
-import { toast } from "react-toastify";
-import { RxAvatar } from "react-icons/rx";
+import { useState } from 'react';
+import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai';
+import styles from '../../styles/styles';
+import { Link, useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import { server } from '../../server';
+import { toast } from 'react-toastify';
+import { RxAvatar } from 'react-icons/rx';
 
 const ShopCreate = () => {
   const navigate = useNavigate();
-  const [email, setEmail] = useState("");
-  const [name,setName] = useState("");
-  const [phoneNumber,setPhoneNumber] = useState();
-  const [address,setAddress] = useState("");
-  const [zipCode,setZipCode] = useState();
-  const [avatar,setAvatar] = useState();
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState('');
+  const [name, setName] = useState('');
+  const [phoneNumber, setPhoneNumber] = useState();
+  const [address, setAddress] = useState('');
+  const [zipCode, setZipCode] = useState();
+  const [avatar, setAvatar] = useState();
+  const [password, setPassword] = useState('');
   const [visible, setVisible] = useState(false);
-     
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const config = { headers: { "Content-Type": "multipart/form-data" } };
 
     const newForm = new FormData();
+    newForm.append('file', avatar);
+    newForm.append('name', name);
+    newForm.append('email', email);
+    newForm.append('password', password);
+    newForm.append('zipCode', zipCode);
+    newForm.append('address', address);
+    newForm.append('phoneNumber', phoneNumber);
 
-    newForm.append("file", avatar);
-    newForm.append("name", name);
-    newForm.append("email", email);
-    newForm.append("password", password);
-    newForm.append("zipCode", zipCode);
-    newForm.append("address", address);
-    newForm.append("phoneNumber", phoneNumber);
     axios
-      .post(`${server}/shop/create-shop`, newForm, config)
+      .post(`${server}/shop/create-shop`, newForm)
       .then((res) => {
         toast.success(res.data.message);
-        setName("");
-        setEmail("");
-        setPassword("");
+        setName('');
+        setEmail('');
+        setPassword('');
         setAvatar();
         setZipCode();
-        setAddress("");
+        setAddress('');
         setPhoneNumber();
       })
       .catch((error) => {
@@ -57,14 +56,13 @@ const ShopCreate = () => {
     <div className="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
         <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
-         Register as a seller
+          Register as a seller
         </h2>
       </div>
       <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-[35rem]">
         <div className="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
           <form className="space-y-6" onSubmit={handleSubmit}>
-
-          <div>
+            <div>
               <label
                 htmlFor="email"
                 className="block text-sm font-medium text-gray-700"
@@ -169,7 +167,7 @@ const ShopCreate = () => {
               </label>
               <div className="mt-1 relative">
                 <input
-                  type={visible ? "text" : "password"}
+                  type={visible ? 'text' : 'password'}
                   name="password"
                   autoComplete="current-password"
                   required
@@ -192,7 +190,7 @@ const ShopCreate = () => {
                 )}
               </div>
             </div>
-          
+
             <div>
               <label
                 htmlFor="avatar"

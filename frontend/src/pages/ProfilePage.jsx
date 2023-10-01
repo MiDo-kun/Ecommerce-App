@@ -1,10 +1,10 @@
-import   { useEffect, useState } from "react";
-import Header from "../components/Layout/Header";
-import styles from "../styles/styles";
-import Loader from "../components/Layout/Loader";
-import ProfileSideBar from "../components/Profile/ProfileSidebar";
-import ProfileContent from "../components/Profile/ProfileContent";
-import { useSelector } from "react-redux";
+import { useEffect, useState } from 'react';
+import Header from '../components/Layout/Header';
+import styles from '../styles/styles';
+import Loader from '../components/Layout/Loader';
+import ProfileSideBar from '../components/Profile/ProfileSidebar';
+import ProfileContent from '../components/Profile/ProfileContent';
+import { useSelector } from 'react-redux';
 
 const ProfilePage = () => {
   const { loading } = useSelector((state) => state.user);

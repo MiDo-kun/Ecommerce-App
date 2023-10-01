@@ -1,6 +1,5 @@
- 
-import Lottie from "react-lottie";
-import animationData from "../../Assests/animations/24151-ecommerce-animation.json";
+import Lottie from 'react-lottie';
+import animationData from '../../Assests/animations/24151-ecommerce-animation.json';
 
 const Loader = () => {
   const defaultOptions = {
@@ -8,7 +7,7 @@ const Loader = () => {
     autoplay: true,
     animationData: animationData,
     rendererSettings: {
-      preserveAspectRatio: "xMidYMid slice",
+      preserveAspectRatio: 'xMidYMid slice',
     },
   };
   return (

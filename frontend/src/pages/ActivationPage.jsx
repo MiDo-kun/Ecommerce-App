@@ -1,14 +1,14 @@
-import axios from "axios";
-import { useEffect } from "react";
-import { useState } from "react";
-import Cookies from "js-cookie";
-import { useLocation } from "react-router-dom";
-import { server } from "../server";
+import axios from 'axios';
+import { useEffect } from 'react';
+import { useState } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { server } from '../server';
 
 const ActivationPage = () => {
   const location = useLocation();
+  const navigate = useNavigate();
   const searchParams = new URLSearchParams(location.search);
-  const activation_token = searchParams.get("token");
+  const activation_token = searchParams.get('token');
 
   const [error, setError] = useState(false);
 
@@ -20,11 +20,14 @@ const ActivationPage = () => {
             activation_token,
           })
           .then((res) => {
-            const { token } = res.data; 
-            Cookies.set("token", token);
+            const { token } = res.data;
+            localStorage.setItem('token', token);
           })
           .catch((err) => {
             setError(true);
+          })
+          .finally(() => {
+            setTimeout(() => navigate('/login'), 2000);
           });
       };
       sendRequest();
@@ -34,11 +37,11 @@ const ActivationPage = () => {
   return (
     <div
       style={{
-        width: "100%",
-        height: "100vh",
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
+        width: '100%',
+        height: '100vh',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
       }}
     >
       {error ? (

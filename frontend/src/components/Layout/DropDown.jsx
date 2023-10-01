@@ -1,6 +1,5 @@
- 
-import { useNavigate } from "react-router-dom";
-import styles from "../../styles/styles";
+import { useNavigate } from 'react-router-dom';
+import styles from '../../styles/styles';
 
 const DropDown = ({ categoriesData, setDropDown }) => {
   const navigate = useNavigate();
@@ -21,11 +20,11 @@ const DropDown = ({ categoriesData, setDropDown }) => {
             <img
               src={i.image_Url}
               style={{
-                width: "25px",
-                height: "25px",
-                objectFit: "contain",
-                marginLeft: "10px",
-                userSelect: "none",
+                width: '25px',
+                height: '25px',
+                objectFit: 'contain',
+                marginLeft: '10px',
+                userSelect: 'none',
               }}
               alt=""
             />

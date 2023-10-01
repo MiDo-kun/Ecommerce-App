@@ -1,4 +1,4 @@
-import { createReducer } from "@reduxjs/toolkit";
+import { createReducer } from '@reduxjs/toolkit';
 
 const initialState = {
   isLoading: true,
@@ -45,7 +45,7 @@ export const eventReducer = createReducer(initialState, {
     state.error = action.payload;
   },
 
-  // get all events 
+  // get all events
   getAlleventsRequest: (state) => {
     state.isLoading = true;
   },

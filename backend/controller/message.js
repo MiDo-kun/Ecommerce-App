@@ -1,15 +1,15 @@
-const Messages = require("../model/messages");
-const ErrorHandler = require("../utils/ErrorHandler");
-const catchAsyncErrors = require("../middleware/catchAsyncErrors");
-const express = require("express");
-const path = require("path");
-const { upload } = require("../multer");
+const Messages = require('../model/messages');
+const ErrorHandler = require('../utils/ErrorHandler');
+const catchAsyncErrors = require('../middleware/catchAsyncErrors');
+const express = require('express');
+const path = require('path');
+const { upload } = require('../multer');
 const router = express.Router();
 
 // create new message
 router.post(
-  "/create-new-message",
-  upload.single("images"),
+  '/create-new-message',
+  upload.single('images'),
   catchAsyncErrors(async (req, res, next) => {
     try {
       const messageData = req.body;
@@ -40,12 +40,12 @@ router.post(
     } catch (error) {
       return next(new ErrorHandler(error.message), 500);
     }
-  })
+  }),
 );
 
 // get all messages with conversation id
 router.get(
-  "/get-all-messages/:id",
+  '/get-all-messages/:id',
   catchAsyncErrors(async (req, res, next) => {
     try {
       const messages = await Messages.find({
@@ -59,7 +59,7 @@ router.get(
     } catch (error) {
       return next(new ErrorHandler(error.message), 500);
     }
-  })
+  }),
 );
 
 module.exports = router;

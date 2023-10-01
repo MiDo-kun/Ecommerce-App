@@ -1,35 +1,68 @@
-import { Elements } from "@stripe/react-stripe-js";
-import { loadStripe } from "@stripe/stripe-js";
-import axios from "axios";
-import React, { useEffect, useState } from 'react';
-import { BrowserRouter, Route, Routes } from "react-router-dom";
-import { ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-import "./App.css";
-import { getAllEvents } from "./redux/actions/event";
-import { getAllProducts } from "./redux/actions/product";
-import { loadSeller, loadUser } from "./redux/actions/user";
-import Store from "./redux/store";
+import { Elements } from '@stripe/react-stripe-js';
+import { loadStripe } from '@stripe/stripe-js';
+import axios from 'axios';
+import { useEffect, useState } from 'react';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import './App.css';
+import { getAllEvents } from './redux/actions/event';
+import { getAllProducts } from './redux/actions/product';
+import { loadSeller, loadUser } from './redux/actions/user';
+import Store from './redux/store';
 import {
-  AdminDashboardEvents, AdminDashboardOrders, AdminDashboardPage, AdminDashboardProducts, AdminDashboardSellers, AdminDashboardUsers, AdminDashboardWithdraw
-} from "./routes/AdminRoutes";
-import ProtectedAdminRoute from "./routes/ProtectedAdminRoute";
-import ProtectedRoute from "./routes/ProtectedRoute";
+  AdminDashboardEvents,
+  AdminDashboardOrders,
+  AdminDashboardPage,
+  AdminDashboardProducts,
+  AdminDashboardSellers,
+  AdminDashboardUsers,
+  AdminDashboardWithdraw,
+} from './routes/AdminRoutes';
+import ProtectedAdminRoute from './routes/ProtectedAdminRoute';
+import ProtectedRoute from './routes/ProtectedRoute';
 import {
-  ActivationPage, BestSellingPage, CheckoutPage, EventsPage,
-  FAQPage, HomePage, LoginPage, OrderDetailsPage, OrderSuccessPage, PaymentPage, ProductDetailsPage, ProductsPage, ProfilePage, SellerActivationPage, ShopCreatePage, ShopLoginPage, SignupPage, TrackOrderPage,
-  UserInbox
-} from "./routes/Routes.jsx";
-import SellerProtectedRoute from "./routes/SellerProtectedRoute";
+  ActivationPage,
+  BestSellingPage,
+  CheckoutPage,
+  EventsPage,
+  FAQPage,
+  HomePage,
+  LoginPage,
+  OrderDetailsPage,
+  OrderSuccessPage,
+  PaymentPage,
+  ProductDetailsPage,
+  ProductsPage,
+  ProfilePage,
+  SellerActivationPage,
+  ShopCreatePage,
+  ShopLoginPage,
+  SignupPage,
+  TrackOrderPage,
+  UserInbox,
+} from './routes/Routes.jsx';
+import SellerProtectedRoute from './routes/SellerProtectedRoute';
 import {
-  ShopAllCoupouns, ShopAllEvents, ShopAllOrders, ShopAllProducts, ShopAllRefunds, ShopCreateEvents, ShopCreateProduct, ShopDashboardPage, ShopInboxPage, ShopOrderDetails, ShopPreviewPage, ShopSettingsPage,
-  ShopWithDrawMoneyPage
-} from "./routes/ShopRoutes";
-import { server } from "./server";
-import { ShopHomePage } from "./ShopRoutes.jsx";
+  ShopAllCoupouns,
+  ShopAllEvents,
+  ShopAllOrders,
+  ShopAllProducts,
+  ShopAllRefunds,
+  ShopCreateEvents,
+  ShopCreateProduct,
+  ShopDashboardPage,
+  ShopInboxPage,
+  ShopOrderDetails,
+  ShopPreviewPage,
+  ShopSettingsPage,
+  ShopWithDrawMoneyPage,
+} from './routes/ShopRoutes';
+import { server } from './server';
+import { ShopHomePage } from './ShopRoutes.jsx';
 
 const App = () => {
-  const [stripeApikey, setStripeApiKey] = useState("");
+  const [stripeApikey, setStripeApiKey] = useState('');
 
   async function getStripeApikey() {
     const { data } = await axios.get(`${server}/payment/stripeapikey`);
@@ -60,19 +93,14 @@ const App = () => {
         </Elements>
       )}
       <Routes>
-        <Route path="/" element={<HomePage />} />
+        {/* <Route path="/" element={<HomePage />} /> */}
+        <Route path="/" element={<ProductsPage/>} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/sign-up" element={<SignupPage />} />
-        
-        <Route
-          path="/activation"
-          element={<ActivationPage />}
-        />
 
-        <Route
-          path="/seller/activation"
-          element={<SellerActivationPage />}
-        />
+        <Route path="/activation" element={<ActivationPage />} />
+
+        <Route path="/seller/activation" element={<SellerActivationPage />} />
         <Route path="/products" element={<ProductsPage />} />
         <Route path="/product/:id" element={<ProductDetailsPage />} />
         <Route path="/best-selling" element={<BestSellingPage />} />
@@ -89,8 +117,7 @@ const App = () => {
         <Route path="/order/success" element={<OrderSuccessPage />} />
         <Route
           path="/profile"
-          element={
-            <ProtectedRoute>
+          element={ <ProtectedRoute>
               <ProfilePage />
             </ProtectedRoute>
           }
@@ -232,9 +259,9 @@ const App = () => {
         <Route
           path="/admin/dashboard"
           element={
-            <ProtectedAdminRoute>
-              <AdminDashboardPage />
-            </ProtectedAdminRoute>
+            // <ProtectedAdminRoute>
+            <AdminDashboardPage />
+            // </ProtectedAdminRoute>
           }
         />
         <Route

@@ -1,21 +1,21 @@
-import { useEffect, useState } from "react";
-import { BsFillBagFill } from "react-icons/bs";
-import { Link, useParams } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import styles from "../styles/styles";
-import { getAllOrdersOfUser } from "../redux/actions/order";
-import { backend_url, server } from "../server";
-import { RxCross1 } from "react-icons/rx";
-import { AiFillStar, AiOutlineStar } from "react-icons/ai";
-import axios from "axios";
-import { toast } from "react-toastify";
+import { useEffect, useState } from 'react';
+import { BsFillBagFill } from 'react-icons/bs';
+import { Link, useParams } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import styles from '../styles/styles';
+import { getAllOrdersOfUser } from '../redux/actions/order';
+import { backend_url, server } from '../server';
+import { RxCross1 } from 'react-icons/rx';
+import { AiFillStar, AiOutlineStar } from 'react-icons/ai';
+import axios from 'axios';
+import { toast } from 'react-toastify';
 
 const UserOrderDetails = () => {
   const { orders } = useSelector((state) => state.order);
   const { user } = useSelector((state) => state.user);
   const dispatch = useDispatch();
   const [open, setOpen] = useState(false);
-  const [comment, setComment] = useState("");
+  const [comment, setComment] = useState('');
   const [selectedItem, setSelectedItem] = useState(null);
   const [rating, setRating] = useState(1);
 
@@ -38,12 +38,12 @@ const UserOrderDetails = () => {
           productId: selectedItem?._id,
           orderId: id,
         },
-        { withCredentials: true }
+        { withCredentials: true },
       )
       .then((res) => {
         toast.success(res.data.message);
         dispatch(getAllOrdersOfUser(user._id));
-        setComment("");
+        setComment('');
         setRating(null);
         setOpen(false);
       })
@@ -53,14 +53,17 @@ const UserOrderDetails = () => {
   };
 
   const refundHandler = async () => {
-    await axios.put(`${server}/order/order-refund/${id}`, {
-      status: "Processing refund"
-    }).then((res) => {
-      toast.success(res.data.message);
-      dispatch(getAllOrdersOfUser(user._id));
-    }).catch((error) => {
-      toast.error(error.response.data.message);
-    })
+    await axios
+      .put(`${server}/order/order-refund/${id}`, {
+        status: 'Processing refund',
+      })
+      .then((res) => {
+        toast.success(res.data.message);
+        dispatch(getAllOrdersOfUser(user._id));
+      })
+      .catch((error) => {
+        toast.error(error.response.data.message);
+      });
   };
 
   return (
@@ -99,16 +102,16 @@ const UserOrderDetails = () => {
                   US${item.discountPrice} x {item.qty}
                 </h5>
               </div>
-              {!item.isReviewed && data?.status === "Delivered" ? <div
-                className={`${styles.button} text-[#fff]`}
-                onClick={() => setOpen(true) || setSelectedItem(item)}
-              >
-                Write a review
-              </div> : (
-                null
-              )}
+              {!item.isReviewed && data?.status === 'Delivered' ? (
+                <div
+                  className={`${styles.button} text-[#fff]`}
+                  onClick={() => setOpen(true) || setSelectedItem(item)}
+                >
+                  Write a review
+                </div>
+              ) : null}
             </div>
-          )
+          );
         })}
 
       {/* review popup */}
@@ -165,7 +168,7 @@ const UserOrderDetails = () => {
                     size={25}
                     onClick={() => setRating(i)}
                   />
-                )
+                ),
               )}
             </div>
             <br />
@@ -209,7 +212,7 @@ const UserOrderDetails = () => {
           <h4 className="pt-3 text-[20px] font-[600]">Shipping Address:</h4>
           <h4 className="pt-3 text-[20px]">
             {data?.shippingAddress.address1 +
-              " " +
+              ' ' +
               data?.shippingAddress.address2}
           </h4>
           <h4 className=" text-[20px]">{data?.shippingAddress.country}</h4>
@@ -219,17 +222,18 @@ const UserOrderDetails = () => {
         <div className="w-full 800px:w-[40%]">
           <h4 className="pt-3 text-[20px]">Payment Info:</h4>
           <h4>
-            Status:{" "}
-            {data?.paymentInfo?.status ? data?.paymentInfo?.status : "Not Paid"}
+            Status:{' '}
+            {data?.paymentInfo?.status ? data?.paymentInfo?.status : 'Not Paid'}
           </h4>
           <br />
-          {
-            data?.status === "Delivered" && (
-              <div className={`${styles.button} text-white`}
-                onClick={refundHandler}
-              >Give a Refund</div>
-            )
-          }
+          {data?.status === 'Delivered' && (
+            <div
+              className={`${styles.button} text-white`}
+              onClick={refundHandler}
+            >
+              Give a Refund
+            </div>
+          )}
         </div>
       </div>
       <br />

@@ -1,6 +1,6 @@
-import axios from "axios";
-import   { useEffect, useState } from "react";
-import { server } from "../../server";
+import axios from 'axios';
+import { useEffect, useState } from 'react';
+import { server } from '../../server';
 
 const CountDown = ({ data }) => {
   const [timeLeft, setTimeLeft] = useState(calculateTimeLeft());
@@ -44,7 +44,7 @@ const CountDown = ({ data }) => {
 
     return (
       <span className="text-[25px] text-[#475ad2]">
-        {timeLeft[interval]} {interval}{" "}
+        {timeLeft[interval]} {interval}{' '}
       </span>
     );
   });

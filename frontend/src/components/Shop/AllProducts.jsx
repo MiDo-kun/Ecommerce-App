@@ -1,12 +1,12 @@
-import { Button } from "@material-ui/core";
-import { DataGrid } from "@material-ui/data-grid";
-import   { useEffect } from "react";
-import { AiOutlineDelete, AiOutlineEye } from "react-icons/ai";
-import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
-import { getAllProductsShop } from "../../redux/actions/product";
-import { deleteProduct } from "../../redux/actions/product";
-import Loader from "../Layout/Loader";
+import { Button } from '@material-ui/core';
+import { DataGrid } from '@material-ui/data-grid';
+import { useEffect } from 'react';
+import { AiOutlineDelete, AiOutlineEye } from 'react-icons/ai';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
+import { getAllProductsShop } from '../../redux/actions/product';
+import { deleteProduct } from '../../redux/actions/product';
+import Loader from '../Layout/Loader';
 
 const AllProducts = () => {
   const { products, isLoading } = useSelector((state) => state.products);
@@ -24,40 +24,44 @@ const AllProducts = () => {
   };
 
   const columns = [
-    { field: "id", headerName: "Product Id", minWidth: 150, flex: 0.7 },
+    { 
+      field: 'id', 
+      headerName: 'Product Id', 
+      minWidth: 150, flex: 1 
+    },
     {
-      field: "name",
-      headerName: "Name",
+      field: 'name',
+      headerName: 'Name',
       minWidth: 180,
-      flex: 1.4,
+      flex: 1,
     },
     {
-      field: "price",
-      headerName: "Price",
+      field: 'price',
+      headerName: 'Price',
       minWidth: 100,
-      flex: 0.6,
+      flex: 0.65,
     },
     {
-      field: "Stock",
-      headerName: "Stock",
-      type: "number",
+      field: 'Stock',
+      headerName: 'Stock',
+      type: 'number',
       minWidth: 80,
-      flex: 0.5,
+      flex: .7,
     },
 
     {
-      field: "sold",
-      headerName: "Sold out",
-      type: "number",
-      minWidth: 130,
-      flex: 0.6,
+      field: 'sold',
+      headerName: 'Sold out',
+      type: 'number',
+      minWidth: 150,
+      flex: 0.7,
     },
     {
-      field: "Preview",
+      field: 'Preview',
       flex: 0.8,
-      minWidth: 100,
-      headerName: "",
-      type: "number",
+      minWidth: 50,
+      headerName: '',
+      type: 'number',
       sortable: false,
       renderCell: (params) => {
         return (
@@ -72,11 +76,11 @@ const AllProducts = () => {
       },
     },
     {
-      field: "Delete",
-      flex: 0.8,
-      minWidth: 120,
-      headerName: "",
-      type: "number",
+      field: 'Delete',
+      flex: 0.7,
+      minWidth: 80,
+      headerName: '',
+      type: 'number',
       sortable: false,
       renderCell: (params) => {
         return (
@@ -97,7 +101,7 @@ const AllProducts = () => {
       row.push({
         id: item._id,
         name: item.name,
-        price: "US$ " + item.discountPrice,
+        price: 'US$ ' + item.discountPrice,
         Stock: item.stock,
         sold: item?.sold_out,
       });

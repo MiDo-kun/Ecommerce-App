@@ -1,20 +1,20 @@
-import   { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import styles from "../../styles/styles";
-import { useEffect } from "react";
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import styles from '../../styles/styles';
+import { useEffect } from 'react';
 import {
   CardNumberElement,
   CardCvcElement,
   CardExpiryElement,
   useStripe,
   useElements,
-} from "@stripe/react-stripe-js";
-import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
-import { useSelector } from "react-redux";
-import axios from "axios";
-import { server } from "../../server";
-import { toast } from "react-toastify";
-import { RxCross1 } from "react-icons/rx";
+} from '@stripe/react-stripe-js';
+import { PayPalScriptProvider, PayPalButtons } from '@paypal/react-paypal-js';
+import { useSelector } from 'react-redux';
+import axios from 'axios';
+import { server } from '../../server';
+import { toast } from 'react-toastify';
+import { RxCross1 } from 'react-icons/rx';
 
 const Payment = () => {
   const [orderData, setOrderData] = useState([]);
@@ -25,7 +25,7 @@ const Payment = () => {
   const elements = useElements();
 
   useEffect(() => {
-    const orderData = JSON.parse(localStorage.getItem("latestOrder"));
+    const orderData = JSON.parse(localStorage.getItem('latestOrder'));
     setOrderData(orderData);
   }, []);
 
@@ -34,16 +34,16 @@ const Payment = () => {
       .create({
         purchase_units: [
           {
-            description: "Sunflower",
+            description: 'Sunflower',
             amount: {
-              currency_code: "USD",
+              currency_code: 'USD',
               value: orderData?.totalPrice,
             },
           },
         ],
         // not needed if a shipping address is actually needed
         application_context: {
-          shipping_preference: "NO_SHIPPING",
+          shipping_preference: 'NO_SHIPPING',
         },
       })
       .then((orderID) => {
@@ -73,24 +73,24 @@ const Payment = () => {
   const paypalPaymentHandler = async (paymentInfo) => {
     const config = {
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
       },
     };
 
     order.paymentInfo = {
       id: paymentInfo.payer_id,
-      status: "succeeded",
-      type: "Paypal",
+      status: 'succeeded',
+      type: 'Paypal',
     };
 
     await axios
       .post(`${server}/order/create-order`, order, config)
       .then((res) => {
         setOpen(false);
-        navigate("/order/success");
-        toast.success("Order successful!");
-        localStorage.setItem("cartItems", JSON.stringify([]));
-        localStorage.setItem("latestOrder", JSON.stringify([]));
+        navigate('/order/success');
+        toast.success('Order successful!');
+        localStorage.setItem('cartItems', JSON.stringify([]));
+        localStorage.setItem('latestOrder', JSON.stringify([]));
         window.location.reload();
       });
   };
@@ -104,14 +104,14 @@ const Payment = () => {
     try {
       const config = {
         headers: {
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json',
         },
       };
 
       const { data } = await axios.post(
         `${server}/payment/process`,
         paymentData,
-        config
+        config,
       );
 
       const client_secret = data.client_secret;
@@ -126,21 +126,21 @@ const Payment = () => {
       if (result.error) {
         toast.error(result.error.message);
       } else {
-        if (result.paymentIntent.status === "succeeded") {
+        if (result.paymentIntent.status === 'succeeded') {
           order.paymnentInfo = {
             id: result.paymentIntent.id,
             status: result.paymentIntent.status,
-            type: "Credit Card",
+            type: 'Credit Card',
           };
 
           await axios
             .post(`${server}/order/create-order`, order, config)
             .then((res) => {
               setOpen(false);
-              navigate("/order/success");
-              toast.success("Order successful!");
-              localStorage.setItem("cartItems", JSON.stringify([]));
-              localStorage.setItem("latestOrder", JSON.stringify([]));
+              navigate('/order/success');
+              toast.success('Order successful!');
+              localStorage.setItem('cartItems', JSON.stringify([]));
+              localStorage.setItem('latestOrder', JSON.stringify([]));
               window.location.reload();
             });
         }
@@ -155,24 +155,24 @@ const Payment = () => {
 
     const config = {
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
       },
     };
 
     order.paymentInfo = {
-      type: "Cash On Delivery",
+      type: 'Cash On Delivery',
     };
 
     await axios
-    .post(`${server}/order/create-order`, order, config)
-    .then((res) => {
-      setOpen(false);
-      navigate("/order/success");
-      toast.success("Order successful!");
-      localStorage.setItem("cartItems", JSON.stringify([]));
-      localStorage.setItem("latestOrder", JSON.stringify([]));
-      window.location.reload();
-    });
+      .post(`${server}/order/create-order`, order, config)
+      .then((res) => {
+        setOpen(false);
+        navigate('/order/success');
+        toast.success('Order successful!');
+        localStorage.setItem('cartItems', JSON.stringify([]));
+        localStorage.setItem('latestOrder', JSON.stringify([]));
+        window.location.reload();
+      });
   };
 
   return (
@@ -247,15 +247,15 @@ const PaymentInfo = ({
                     options={{
                       style: {
                         base: {
-                          fontSize: "19px",
+                          fontSize: '19px',
                           lineHeight: 1.5,
-                          color: "#444",
+                          color: '#444',
                         },
                         empty: {
-                          color: "#3a120a",
-                          backgroundColor: "transparent",
-                          "::placeholder": {
-                            color: "#444",
+                          color: '#3a120a',
+                          backgroundColor: 'transparent',
+                          '::placeholder': {
+                            color: '#444',
                           },
                         },
                       },
@@ -272,15 +272,15 @@ const PaymentInfo = ({
                     options={{
                       style: {
                         base: {
-                          fontSize: "19px",
+                          fontSize: '19px',
                           lineHeight: 1.5,
-                          color: "#444",
+                          color: '#444',
                         },
                         empty: {
-                          color: "#3a120a",
-                          backgroundColor: "transparent",
-                          "::placeholder": {
-                            color: "#444",
+                          color: '#3a120a',
+                          backgroundColor: 'transparent',
+                          '::placeholder': {
+                            color: '#444',
                           },
                         },
                       },
@@ -294,15 +294,15 @@ const PaymentInfo = ({
                     options={{
                       style: {
                         base: {
-                          fontSize: "19px",
+                          fontSize: '19px',
                           lineHeight: 1.5,
-                          color: "#444",
+                          color: '#444',
                         },
                         empty: {
-                          color: "#3a120a",
-                          backgroundColor: "transparent",
-                          "::placeholder": {
-                            color: "#444",
+                          color: '#3a120a',
+                          backgroundColor: 'transparent',
+                          '::placeholder': {
+                            color: '#444',
                           },
                         },
                       },
@@ -356,18 +356,18 @@ const PaymentInfo = ({
                       onClick={() => setOpen(false)}
                     />
                   </div>
-                    <PayPalScriptProvider
-                      options={{
-                        "client-id":
-                          "Aczac4Ry9_QA1t4c7TKH9UusH3RTe6onyICPoCToHG10kjlNdI-qwobbW9JAHzaRQwFMn2-k660853jn",
-                      }}
-                    >
-                      <PayPalButtons
-                        style={{ layout: "vertical" }}
-                        onApprove={onApprove}
-                        createOrder={createOrder}
-                      />
-                    </PayPalScriptProvider>
+                  <PayPalScriptProvider
+                    options={{
+                      'client-id':
+                        'Aczac4Ry9_QA1t4c7TKH9UusH3RTe6onyICPoCToHG10kjlNdI-qwobbW9JAHzaRQwFMn2-k660853jn',
+                    }}
+                  >
+                    <PayPalButtons
+                      style={{ layout: 'vertical' }}
+                      onApprove={onApprove}
+                      createOrder={createOrder}
+                    />
+                  </PayPalScriptProvider>
                 </div>
               </div>
             )}
@@ -425,7 +425,9 @@ const CartData = ({ orderData }) => {
       <br />
       <div className="flex justify-between border-b pb-3">
         <h3 className="text-[16px] font-[400] text-[#000000a4]">Discount:</h3>
-        <h5 className="text-[18px] font-[600]">{orderData?.discountPrice? "$" + orderData.discountPrice : "-"}</h5>
+        <h5 className="text-[18px] font-[600]">
+          {orderData?.discountPrice ? '$' + orderData.discountPrice : '-'}
+        </h5>
       </div>
       <h5 className="text-[18px] font-[600] text-end pt-3">
         ${orderData?.totalPrice}

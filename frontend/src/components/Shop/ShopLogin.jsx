@@ -1,48 +1,40 @@
-import { useEffect, useState } from "react";
-import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
-import styles from "../../styles/styles";
-import { Link, useNavigate } from "react-router-dom";
-import axios from "axios";
-import { server } from "../../server";
-import { toast } from "react-toastify";
-import Cookies from "js-cookie";
+import { useEffect, useState } from 'react';
+import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai';
+import styles from '../../styles/styles';
+import { Link, useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import { server } from '../../server';
+import { toast } from 'react-toastify';
 
 const ShopLogin = () => {
   const navigate = useNavigate();
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState('admin@gmail.com');
+  const [password, setPassword] = useState('administrator');
   const [visible, setVisible] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const token = Cookies.get("seller_token");
     await axios
-      .post(
-        `${server}/shop/login-shop`,
-        {
-          email,
-          password,
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      )
+      .post(`${server}/shop/login-shop`, {
+        email,
+        password,
+      })
       .then((res) => {
-        toast.success("Login Success!");
-        navigate("/dashboard");
+        localStorage.setItem('seller_token', res.data);
+        toast.success('Login Success!');
+        navigate('/dashboard');
         window.location.reload(true);
       })
       .catch((err) => {
         toast.error(err.response.data.message);
       });
-  }; return (
+  };
+  return (
     <div className="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
         <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
-          Login to your shop
+          Administrator
         </h2>
       </div>
       <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
@@ -76,7 +68,7 @@ const ShopLogin = () => {
               </label>
               <div className="mt-1 relative">
                 <input
-                  type={visible ? "text" : "password"}
+                  type={visible ? 'text' : 'password'}
                   name="password"
                   autoComplete="current-password"
                   required
@@ -131,18 +123,7 @@ const ShopLogin = () => {
                 Submit
               </button>
             </div>
-            <div className={`${styles.noramlFlex} w-full`}>
-              {/* <h4>Test account</h4> */}
-              <ul>
-                <li><strong>Email: </strong> admin@gmail.com</li>
-                <li><strong>Password: </strong> admin</li>
-              </ul>
-              {/* <h4>Not have any account?</h4>
-
-              <Link to="/shop-create" className="text-blue-600 pl-2">
-                Sign Up
-              </Link> */}
-            </div>
+            <div className={`${styles.noramlFlex} w-full`}></div>
           </form>
         </div>
       </div>

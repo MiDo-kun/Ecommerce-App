@@ -1,9 +1,9 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 
 const conversationSchema = new mongoose.Schema(
   {
-    groupTitle:{
-        type: String,
+    groupTitle: {
+      type: String,
     },
     members: {
       type: Array,
@@ -15,7 +15,7 @@ const conversationSchema = new mongoose.Schema(
       type: String,
     },
   },
-  { timestamps: true }
+  { timestamps: true },
 );
 
-module.exports = mongoose.model("Conversation", conversationSchema);
+module.exports = mongoose.model('Conversation', conversationSchema);

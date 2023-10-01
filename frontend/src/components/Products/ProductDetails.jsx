@@ -1,23 +1,23 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState } from 'react';
 import {
   AiFillHeart,
   AiOutlineHeart,
   AiOutlineMessage,
   AiOutlineShoppingCart,
-} from "react-icons/ai";
-import { useDispatch, useSelector } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
-import { getAllProductsShop } from "../../redux/actions/product";
-import { backend_url, server } from "../../server";
-import styles from "../../styles/styles";
+} from 'react-icons/ai';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link, useNavigate } from 'react-router-dom';
+import { getAllProductsShop } from '../../redux/actions/product';
+import { backend_url, server } from '../../server';
+import styles from '../../styles/styles';
 import {
   addToWishlist,
   removeFromWishlist,
-} from "../../redux/actions/wishlist";
-import { addTocart } from "../../redux/actions/cart";
-import { toast } from "react-toastify";
-import Ratings from "./Ratings";
-import axios from "axios";
+} from '../../redux/actions/wishlist';
+import { addTocart } from '../../redux/actions/cart';
+import { toast } from 'react-toastify';
+import Ratings from './Ratings';
+import axios from 'axios';
 
 const ProductDetails = ({ data }) => {
   const { wishlist } = useSelector((state) => state.wishlist);
@@ -61,14 +61,14 @@ const ProductDetails = ({ data }) => {
   const addToCartHandler = (id) => {
     const isItemExists = cart && cart.find((i) => i._id === id);
     if (isItemExists) {
-      toast.error("Item already in cart!");
+      toast.error('Item already in cart!');
     } else {
       if (data.stock < 1) {
-        toast.error("Product stock limited!");
+        toast.error('Product stock limited!');
       } else {
         const cartData = { ...data, qty: count };
         dispatch(addTocart(cartData));
-        toast.success("Item added to cart successfully!");
+        toast.success('Item added to cart successfully!');
       }
     }
   };
@@ -82,13 +82,12 @@ const ProductDetails = ({ data }) => {
     products.reduce(
       (acc, product) =>
         acc + product.reviews.reduce((sum, review) => sum + review.rating, 0),
-      0
+      0,
     );
 
-  const avg =  totalRatings / totalReviewsLength || 0;
+  const avg = totalRatings / totalReviewsLength || 0;
 
   const averageRating = avg.toFixed(2);
-
 
   const handleMessageSubmit = async () => {
     if (isAuthenticated) {
@@ -108,7 +107,7 @@ const ProductDetails = ({ data }) => {
           toast.error(error.response.data.message);
         });
     } else {
-      toast.error("Please login to create a conversation");
+      toast.error('Please login to create a conversation');
     }
   };
 
@@ -128,9 +127,8 @@ const ProductDetails = ({ data }) => {
                   {data &&
                     data.images.map((i, index) => (
                       <div
-                        className={`${
-                          select === 0 ? "border" : "null"
-                        } cursor-pointer`}
+                        className={`${select === 0 ? 'border' : 'null'
+                          } cursor-pointer`}
                       >
                         <img
                           src={`${backend_url}${i}`}
@@ -141,9 +139,8 @@ const ProductDetails = ({ data }) => {
                       </div>
                     ))}
                   <div
-                    className={`${
-                      select === 1 ? "border" : "null"
-                    } cursor-pointer`}
+                    className={`${select === 1 ? 'border' : 'null'
+                      } cursor-pointer`}
                   ></div>
                 </div>
               </div>
@@ -155,23 +152,23 @@ const ProductDetails = ({ data }) => {
                     {data.discountPrice}$
                   </h4>
                   <h3 className={`${styles.price}`}>
-                    {data.originalPrice ? data.originalPrice + "$" : null}
+                    {data.originalPrice ? data.originalPrice + '$' : null}
                   </h3>
                 </div>
 
                 <div className="flex items-center mt-12 justify-between pr-3">
                   <div>
                     <button
-                      className="bg-gradient-to-r from-teal-400 to-teal-500 text-white font-bold rounded-l px-4 py-2 shadow-lg hover:opacity-75 transition duration-300 ease-in-out"
+                      className="bg-gradient-to-r from-teal-400 to-teal-500 text-white font-bold px-4 py-2 shadow-lg hover:opacity-75 transition duration-300 ease-in-out"
                       onClick={decrementCount}
                     >
                       -
                     </button>
-                    <span className="bg-gray-200 text-gray-800 font-medium px-4 py-[11px]">
+                    <span className="bg-gray-200 text-gray-800 font-medium px-4 py-[8px]">
                       {count}
                     </span>
                     <button
-                      className="bg-gradient-to-r from-teal-400 to-teal-500 text-white font-bold rounded-l px-4 py-2 shadow-lg hover:opacity-75 transition duration-300 ease-in-out"
+                      className="bg-gradient-to-r from-teal-400 to-teal-500 text-white font-bold px-4 py-2 shadow-lg hover:opacity-75 transition duration-300 ease-in-out"
                       onClick={incrementCount}
                     >
                       +
@@ -183,7 +180,7 @@ const ProductDetails = ({ data }) => {
                         size={30}
                         className="cursor-pointer"
                         onClick={() => removeFromWishlistHandler(data)}
-                        color={click ? "red" : "#333"}
+                        color={click ? 'red' : '#333'}
                         title="Remove from wishlist"
                       />
                     ) : (
@@ -191,24 +188,34 @@ const ProductDetails = ({ data }) => {
                         size={30}
                         className="cursor-pointer"
                         onClick={() => addToWishlistHandler(data)}
-                        color={click ? "red" : "#333"}
+                        color={click ? 'red' : '#333'}
                         title="Add to wishlist"
                       />
                     )}
                   </div>
                 </div>
-                <div
-                  className={`${styles.button} !mt-6 !rounded !h-11 flex items-center`}
-                  onClick={() => addToCartHandler(data._id)}
-                >
-                  <span className="text-white flex items-center">
-                    Add to cart <AiOutlineShoppingCart className="ml-1" />
-                  </span>
+                <div className="flex gap-5">
+                  <div
+                    className={`${styles.button} !mt-6 !rounded !h-11 flex items-center`}
+                    onClick={() => addToCartHandler(data._id)}
+                  >
+                    <span className="text-white flex items-center">
+                      Add to Cart <AiOutlineShoppingCart className="ml-2" />
+                    </span>
+                  </div>
+                  <div
+                    className={`${styles.button} !mt-6 bg-[#6443d1] !rounded !h-11`}
+                    onClick={handleMessageSubmit}
+                  >
+                    <span className="text-white flex items-center">
+                      Message <AiOutlineMessage className="ml-3" />
+                    </span>
+                  </div>
                 </div>
-                <div className="flex items-center pt-8">
+                {/* <div className="flex items-center pt-8">
                   <Link to={`/shop/preview/${data?.shop._id}`}>
                     <img
-                      src={`${backend_url}${data?.shop?.avatar}`}
+                      src={`${data?.shop?.avatar?.url}`}
                       alt=""
                       className="w-[50px] h-[50px] rounded-full mr-2"
                     />
@@ -231,7 +238,7 @@ const ProductDetails = ({ data }) => {
                       Send Message <AiOutlineMessage className="ml-1" />
                     </span>
                   </div>
-                </div>
+                </div> */}
               </div>
             </div>
           </div>
@@ -259,11 +266,11 @@ const ProductDetailsInfo = ({
 
   return (
     <div className="bg-[#f5f6fb] px-3 800px:px-10 py-2 rounded">
-      <div className="w-full flex justify-between border-b pt-10 pb-2">
+      <div className="w-full flex justify-around border-b pt-10 pb-2">
         <div className="relative">
           <h5
             className={
-              "text-[#000] text-[18px] px-1 leading-5 font-[600] cursor-pointer 800px:text-[20px]"
+              'text-[#000] text-[18px] px-1 leading-5 font-[600] cursor-pointer 800px:text-[20px]'
             }
             onClick={() => setActive(1)}
           >
@@ -276,7 +283,7 @@ const ProductDetailsInfo = ({
         <div className="relative">
           <h5
             className={
-              "text-[#000] text-[18px] px-1 leading-5 font-[600] cursor-pointer 800px:text-[20px]"
+              'text-[#000] text-[18px] px-1 leading-5 font-[600] cursor-pointer 800px:text-[20px]'
             }
             onClick={() => setActive(2)}
           >
@@ -286,10 +293,10 @@ const ProductDetailsInfo = ({
             <div className={`${styles.active_indicator}`} />
           ) : null}
         </div>
-        <div className="relative">
+        {/* <div className="relative">
           <h5
             className={
-              "text-[#000] text-[18px] px-1 leading-5 font-[600] cursor-pointer 800px:text-[20px]"
+              'text-[#000] text-[18px] px-1 leading-5 font-[600] cursor-pointer 800px:text-[20px]'
             }
             onClick={() => setActive(3)}
           >
@@ -298,7 +305,7 @@ const ProductDetailsInfo = ({
           {active === 3 ? (
             <div className={`${styles.active_indicator}`} />
           ) : null}
-        </div>
+        </div> */}
       </div>
       {active === 1 ? (
         <>
@@ -335,7 +342,7 @@ const ProductDetailsInfo = ({
           </div>
         </div>
       ) : null}
-
+{/* 
       {active === 3 && (
         <div className="w-full block 800px:flex p-5">
           <div className="w-full 800px:w-[50%]">
@@ -359,19 +366,19 @@ const ProductDetailsInfo = ({
           <div className="w-full 800px:w-[50%] mt-5 800px:mt-0 800px:flex flex-col items-end">
             <div className="text-left">
               <h5 className="font-[600]">
-                Joined on:{" "}
+                Joined on:{' '}
                 <span className="font-[500]">
                   {data.shop?.createdAt?.slice(0, 10)}
                 </span>
               </h5>
               <h5 className="font-[600] pt-3">
-                Total Products:{" "}
+                Total Products:{' '}
                 <span className="font-[500]">
                   {products && products.length}
                 </span>
               </h5>
               <h5 className="font-[600] pt-3">
-                Total Reviews:{" "}
+                Total Reviews:{' '}
                 <span className="font-[500]">{totalReviewsLength}</span>
               </h5>
               <Link to="/">
@@ -384,7 +391,7 @@ const ProductDetailsInfo = ({
             </div>
           </div>
         </div>
-      )}
+      )} */}
     </div>
   );
 };

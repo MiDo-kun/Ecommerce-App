@@ -1,18 +1,20 @@
-const Conversation = require("../model/conversation");
-const ErrorHandler = require("../utils/ErrorHandler");
-const catchAsyncErrors = require("../middleware/catchAsyncErrors");
-const express = require("express");
-const { isSeller, isAuthenticated } = require("../middleware/auth");
+const Conversation = require('../model/conversation');
+const ErrorHandler = require('../utils/ErrorHandler');
+const catchAsyncErrors = require('../middleware/catchAsyncErrors');
+const express = require('express');
+const { isSeller, isAuthenticated } = require('../middleware/auth');
 const router = express.Router();
 
 // create a new conversation
 router.post(
-  "/create-new-conversation",
+  '/create-new-conversation',
   catchAsyncErrors(async (req, res, next) => {
     try {
       const { groupTitle, userId, sellerId } = req.body;
 
-      const isConversationExist = await Conversation.findOne({ groupTitle });
+      const isConversationExist = await Conversation.findOne({
+        groupTitle,
+      });
 
       if (isConversationExist) {
         const conversation = isConversationExist;
@@ -34,12 +36,12 @@ router.post(
     } catch (error) {
       return next(new ErrorHandler(error.response.message), 500);
     }
-  })
+  }),
 );
 
 // get seller conversations
 router.get(
-  "/get-all-conversation-seller/:id",
+  '/get-all-conversation-seller/:id',
   isSeller,
   catchAsyncErrors(async (req, res, next) => {
     try {
@@ -56,13 +58,12 @@ router.get(
     } catch (error) {
       return next(new ErrorHandler(error), 500);
     }
-  })
+  }),
 );
-
 
 // get user conversations
 router.get(
-  "/get-all-conversation-user/:id",
+  '/get-all-conversation-user/:id',
   isAuthenticated,
   catchAsyncErrors(async (req, res, next) => {
     try {
@@ -79,12 +80,12 @@ router.get(
     } catch (error) {
       return next(new ErrorHandler(error), 500);
     }
-  })
+  }),
 );
 
 // update the last message
 router.put(
-  "/update-last-message/:id",
+  '/update-last-message/:id',
   catchAsyncErrors(async (req, res, next) => {
     try {
       const { lastMessage, lastMessageId } = req.body;
@@ -101,7 +102,7 @@ router.put(
     } catch (error) {
       return next(new ErrorHandler(error), 500);
     }
-  })
+  }),
 );
 
 module.exports = router;

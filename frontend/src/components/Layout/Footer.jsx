@@ -1,16 +1,15 @@
- 
 import {
   AiFillFacebook,
   AiFillInstagram,
   AiFillYoutube,
   AiOutlineTwitter,
-} from "react-icons/ai";
-import { Link } from "react-router-dom";
+} from 'react-icons/ai';
+import { Link } from 'react-router-dom';
 import {
   footercompanyLinks,
   footerProductLinks,
   footerSupportLinks,
-} from "../../static/data";
+} from '../../static/data';
 
 const Footer = () => {
   return (
@@ -48,22 +47,22 @@ const Footer = () => {
             <AiFillFacebook size={25} className="cursor-pointer" />
             <AiOutlineTwitter
               size={25}
-              style={{ marginLeft: "15px", cursor: "pointer" }}
+              style={{ marginLeft: '15px', cursor: 'pointer' }}
             />
             <AiFillInstagram
               size={25}
-              style={{ marginLeft: "15px", cursor: "pointer" }}
+              style={{ marginLeft: '15px', cursor: 'pointer' }}
             />
             <AiFillYoutube
               size={25}
-              style={{ marginLeft: "15px", cursor: "pointer" }}
+              style={{ marginLeft: '15px', cursor: 'pointer' }}
             />
           </div>
         </ul>
 
         <ul className="text-center sm:text-start">
           <h1 className="mb-1 font-semibold">Company</h1>
-          {footerProductLinks.map((link,index) => (
+          {footerProductLinks.map((link, index) => (
             <li key={index}>
               <Link
                 className="text-gray-400 hover:text-teal-400 duration-300
@@ -78,7 +77,7 @@ const Footer = () => {
 
         <ul className="text-center sm:text-start">
           <h1 className="mb-1 font-semibold">Shop</h1>
-          {footercompanyLinks.map((link,index) => (
+          {footercompanyLinks.map((link, index) => (
             <li key={index}>
               <Link
                 className="text-gray-400 hover:text-teal-400 duration-300
@@ -93,7 +92,7 @@ const Footer = () => {
 
         <ul className="text-center sm:text-start">
           <h1 className="mb-1 font-semibold">Support</h1>
-          {footerSupportLinks.map((link,index) => (
+          {footerSupportLinks.map((link, index) => (
             <li key={index}>
               <Link
                 className="text-gray-400 hover:text-teal-400 duration-300

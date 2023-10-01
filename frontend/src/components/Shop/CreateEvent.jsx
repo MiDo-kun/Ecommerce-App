@@ -1,10 +1,10 @@
-import   { useEffect, useState } from "react";
-import { AiOutlinePlusCircle } from "react-icons/ai";
-import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import { categoriesData } from "../../static/data";
-import { toast } from "react-toastify";
-import { createevent } from "../../redux/actions/event";
+import { useEffect, useState } from 'react';
+import { AiOutlinePlusCircle } from 'react-icons/ai';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { categoriesData } from '../../static/data';
+import { toast } from 'react-toastify';
+import { createevent } from '../../redux/actions/event';
 
 const CreateEvent = () => {
   const { seller } = useSelector((state) => state.seller);
@@ -13,40 +13,47 @@ const CreateEvent = () => {
   const dispatch = useDispatch();
 
   const [images, setImages] = useState([]);
-  const [name, setName] = useState("");
-  const [description, setDescription] = useState("");
-  const [category, setCategory] = useState("");
-  const [tags, setTags] = useState("");
+  const [name, setName] = useState('');
+  const [description, setDescription] = useState('');
+  const [category, setCategory] = useState('');
+  const [tags, setTags] = useState('');
   const [originalPrice, setOriginalPrice] = useState();
   const [discountPrice, setDiscountPrice] = useState();
   const [stock, setStock] = useState();
- const [startDate,setStartDate] = useState(null);
- const [endDate,setEndDate] = useState(null);
+  const [startDate, setStartDate] = useState(null);
+  const [endDate, setEndDate] = useState(null);
 
- const handleStartDateChange = (e) => {
+  const handleStartDateChange = (e) => {
     const startDate = new Date(e.target.value);
     const minEndDate = new Date(startDate.getTime() + 3 * 24 * 60 * 60 * 1000);
     setStartDate(startDate);
     setEndDate(null);
-    document.getElementById("end-date").min = minEndDate.toISOString.slice(0,10);
- }
+    document.getElementById('end-date').min = minEndDate.toISOString.slice(
+      0,
+      10,
+    );
+  };
 
- const handleEndDateChange = (e) => {
+  const handleEndDateChange = (e) => {
     const endDate = new Date(e.target.value);
-     setEndDate(endDate);
- };
-   
- const today = new Date().toISOString().slice(0,10);
+    setEndDate(endDate);
+  };
 
- const minEndDate = startDate ? new Date(startDate.getTime() + 3 * 24 * 60 * 60 * 1000).toISOString().slice(0,10) : "";
+  const today = new Date().toISOString().slice(0, 10);
+
+  const minEndDate = startDate
+    ? new Date(startDate.getTime() + 3 * 24 * 60 * 60 * 1000)
+        .toISOString()
+        .slice(0, 10)
+    : '';
 
   useEffect(() => {
     if (error) {
       toast.error(error);
     }
     if (success) {
-      toast.success("Event created successfully!");
-      navigate("/dashboard-events");
+      toast.success('Event created successfully!');
+      navigate('/dashboard-events');
       window.location.reload();
     }
   }, [dispatch, error, success]);
@@ -58,26 +65,24 @@ const CreateEvent = () => {
     setImages((prevImages) => [...prevImages, ...files]);
   };
 
-
-
   const handleSubmit = (e) => {
     e.preventDefault();
 
     const newForm = new FormData();
 
     images.forEach((image) => {
-      newForm.append("images", image);
+      newForm.append('images', image);
     });
-    newForm.append("name", name);
-    newForm.append("description", description);
-    newForm.append("category", category);
-    newForm.append("tags", tags);
-    newForm.append("originalPrice", originalPrice);
-    newForm.append("discountPrice", discountPrice);
-    newForm.append("stock", stock);
-    newForm.append("shopId", seller._id);
-    newForm.append("start_Date", startDate.toISOString());
-    newForm.append("Finish_Date", endDate.toISOString());
+    newForm.append('name', name);
+    newForm.append('description', description);
+    newForm.append('category', category);
+    newForm.append('tags', tags);
+    newForm.append('originalPrice', originalPrice);
+    newForm.append('discountPrice', discountPrice);
+    newForm.append('stock', stock);
+    newForm.append('shopId', seller._id);
+    newForm.append('start_Date', startDate.toISOString());
+    newForm.append('Finish_Date', endDate.toISOString());
     dispatch(createevent(newForm));
   };
 
@@ -197,7 +202,7 @@ const CreateEvent = () => {
             type="date"
             name="price"
             id="start-date"
-            value={startDate ? startDate.toISOString().slice(0,10) : ""}
+            value={startDate ? startDate.toISOString().slice(0, 10) : ''}
             className="mt-2 appearance-none block w-full px-3 h-[35px] border border-gray-300 rounded-[3px] placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
             onChange={handleStartDateChange}
             min={today}
@@ -213,7 +218,7 @@ const CreateEvent = () => {
             type="date"
             name="price"
             id="start-date"
-            value={endDate ? endDate.toISOString().slice(0,10) : ""}
+            value={endDate ? endDate.toISOString().slice(0, 10) : ''}
             className="mt-2 appearance-none block w-full px-3 h-[35px] border border-gray-300 rounded-[3px] placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
             onChange={handleEndDateChange}
             min={minEndDate}

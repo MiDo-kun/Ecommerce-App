@@ -1,15 +1,15 @@
-const express = require("express");
+const express = require('express');
 const router = express.Router();
-const ErrorHandler = require("../utils/ErrorHandler");
-const catchAsyncErrors = require("../middleware/catchAsyncErrors");
-const { isAuthenticated, isSeller, isAdmin } = require("../middleware/auth");
-const Order = require("../model/order");
-const Shop = require("../model/shop");
-const Product = require("../model/product");
+const ErrorHandler = require('../utils/ErrorHandler');
+const catchAsyncErrors = require('../middleware/catchAsyncErrors');
+const { isAuthenticated, isSeller, isAdmin } = require('../middleware/auth');
+const Order = require('../model/order');
+const Shop = require('../model/shop');
+const Product = require('../model/product');
 
 // create new order
 router.post(
-  "/create-order",
+  '/create-order',
   catchAsyncErrors(async (req, res, next) => {
     try {
       const { cart, shippingAddress, user, totalPrice, paymentInfo } = req.body;
@@ -46,35 +46,16 @@ router.post(
     } catch (error) {
       return next(new ErrorHandler(error.message, 500));
     }
-  })
+  }),
 );
 
 // get all orders of user
 router.get(
-  "/get-all-orders/:userId",
-  catchAsyncErrors(async (req, res, next) => {
-    try {
-      const orders = await Order.find({ "user._id": req.params.userId }).sort({
-        createdAt: -1,
-      });
-
-      res.status(200).json({
-        success: true,
-        orders,
-      });
-    } catch (error) {
-      return next(new ErrorHandler(error.message, 500));
-    }
-  })
-);
-
-// get all orders of seller
-router.get(
-  "/get-seller-all-orders/:shopId",
+  '/get-all-orders/:userId',
   catchAsyncErrors(async (req, res, next) => {
     try {
       const orders = await Order.find({
-        "cart.shopId": req.params.shopId,
+        'user._id': req.params.userId,
       }).sort({
         createdAt: -1,
       });
@@ -86,21 +67,42 @@ router.get(
     } catch (error) {
       return next(new ErrorHandler(error.message, 500));
     }
-  })
+  }),
+);
+
+// get all orders of seller
+router.get(
+  '/get-seller-all-orders/:shopId',
+  catchAsyncErrors(async (req, res, next) => {
+    try {
+      const orders = await Order.find({
+        'cart.shopId': req.params.shopId,
+      }).sort({
+        createdAt: -1,
+      });
+
+      res.status(200).json({
+        success: true,
+        orders,
+      });
+    } catch (error) {
+      return next(new ErrorHandler(error.message, 500));
+    }
+  }),
 );
 
 // update order status for seller
 router.put(
-  "/update-order-status/:id",
+  '/update-order-status/:id',
   isSeller,
   catchAsyncErrors(async (req, res, next) => {
     try {
       const order = await Order.findById(req.params.id);
 
       if (!order) {
-        return next(new ErrorHandler("Order not found with this id", 400));
+        return next(new ErrorHandler('Order not found with this id', 400));
       }
-      if (req.body.status === "Transferred to delivery partner") {
+      if (req.body.status === 'Transferred to delivery partner') {
         order.cart.forEach(async (o) => {
           await updateOrder(o._id, o.qty);
         });
@@ -108,10 +110,10 @@ router.put(
 
       order.status = req.body.status;
 
-      if (req.body.status === "Delivered") {
+      if (req.body.status === 'Delivered') {
         order.deliveredAt = Date.now();
-        order.paymentInfo.status = "Succeeded";
-        const serviceCharge = order.totalPrice * .10;
+        order.paymentInfo.status = 'Succeeded';
+        const serviceCharge = order.totalPrice * 0.1;
         await updateSellerInfo(order.totalPrice - serviceCharge);
       }
 
@@ -133,7 +135,7 @@ router.put(
 
       async function updateSellerInfo(amount) {
         const seller = await Shop.findById(req.seller.id);
-        
+
         seller.availableBalance = amount;
 
         await seller.save();
@@ -141,18 +143,18 @@ router.put(
     } catch (error) {
       return next(new ErrorHandler(error.message, 500));
     }
-  })
+  }),
 );
 
 // give a refund ----- user
 router.put(
-  "/order-refund/:id",
+  '/order-refund/:id',
   catchAsyncErrors(async (req, res, next) => {
     try {
       const order = await Order.findById(req.params.id);
 
       if (!order) {
-        return next(new ErrorHandler("Order not found with this id", 400));
+        return next(new ErrorHandler('Order not found with this id', 400));
       }
 
       order.status = req.body.status;
@@ -162,24 +164,24 @@ router.put(
       res.status(200).json({
         success: true,
         order,
-        message: "Order Refund Request successfully!",
+        message: 'Order Refund Request successfully!',
       });
     } catch (error) {
       return next(new ErrorHandler(error.message, 500));
     }
-  })
+  }),
 );
 
 // accept the refund ---- seller
 router.put(
-  "/order-refund-success/:id",
+  '/order-refund-success/:id',
   isSeller,
   catchAsyncErrors(async (req, res, next) => {
     try {
       const order = await Order.findById(req.params.id);
 
       if (!order) {
-        return next(new ErrorHandler("Order not found with this id", 400));
+        return next(new ErrorHandler('Order not found with this id', 400));
       }
 
       order.status = req.body.status;
@@ -188,10 +190,10 @@ router.put(
 
       res.status(200).json({
         success: true,
-        message: "Order Refund successfull!",
+        message: 'Order Refund successfull!',
       });
 
-      if (req.body.status === "Refund Success") {
+      if (req.body.status === 'Refund Success') {
         order.cart.forEach(async (o) => {
           await updateOrder(o._id, o.qty);
         });
@@ -208,14 +210,14 @@ router.put(
     } catch (error) {
       return next(new ErrorHandler(error.message, 500));
     }
-  })
+  }),
 );
 
 // all orders --- for admin
 router.get(
-  "/admin-all-orders",
+  '/admin-all-orders',
   isAuthenticated,
-  isAdmin("Admin"),
+  isAdmin('Admin'),
   catchAsyncErrors(async (req, res, next) => {
     try {
       const orders = await Order.find().sort({
@@ -229,7 +231,7 @@ router.get(
     } catch (error) {
       return next(new ErrorHandler(error.message, 500));
     }
-  })
+  }),
 );
 
 module.exports = router;
