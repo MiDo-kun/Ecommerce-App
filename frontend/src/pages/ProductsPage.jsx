@@ -30,7 +30,7 @@ const ProductsPage = () => {
       {isLoading ? (
         <Loader />
       ) : (
-        <div>
+        <div className='max-w-[1366px] mx-auto'>
           <Header activeHeading={3} />
           <br />
           <br />

@@ -13,7 +13,7 @@ const CheckoutPage = () => {
       <Checkout />
       <br />
       <br />
-      <Footer />
+      {/* <Footer /> */}
     </div>
   );
 };

@@ -149,10 +149,11 @@ const ProductDetails = ({ data }) => {
                 <p>{data.description}</p>
                 <div className="flex pt-3">
                   <h4 className={`${styles.productDiscountPrice}`}>
-                    {data.discountPrice}$
+                    ₱
+                    {data.discountPrice}
                   </h4>
                   <h3 className={`${styles.price}`}>
-                    {data.originalPrice ? data.originalPrice + '$' : null}
+                    {data.originalPrice ? '₱' + data.originalPrice  : null}
                   </h3>
                 </div>
 
@@ -204,11 +205,11 @@ const ProductDetails = ({ data }) => {
                     </span>
                   </div>
                   <div
-                    className={`${styles.button} !mt-6 bg-[#6443d1] !rounded !h-11`}
+                    className={`${styles.button} !w-[175px] !mt-6 bg-[#6443d1] !rounded !h-11 px-4`}
                     onClick={handleMessageSubmit}
                   >
                     <span className="text-white flex items-center">
-                      Message <AiOutlineMessage className="ml-3" />
+                      Send Message <AiOutlineMessage  className="ml-2"/>
                     </span>
                   </div>
                 </div>
@@ -342,7 +343,7 @@ const ProductDetailsInfo = ({
           </div>
         </div>
       ) : null}
-{/* 
+      {/* 
       {active === 3 && (
         <div className="w-full block 800px:flex p-5">
           <div className="w-full 800px:w-[50%]">

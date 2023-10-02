@@ -35,12 +35,16 @@ const Header = ({ activeHeading }) => {
   const handleSearchChange = (e) => {
     const term = e.target.value;
     setSearchTerm(term);
+    if (!term) {
+      return setSearchData('');
+    }
 
     const filteredProducts =
       allProducts &&
-      allProducts.filter((product) =>
-        product.name.toLowerCase().includes(term.toLowerCase()),
-      );
+      allProducts.filter((product) => {
+        return product.name.toLowerCase().includes(term.toLowerCase())
+      });
+
     setSearchData(filteredProducts);
   };
 
@@ -148,6 +152,7 @@ const Header = ({ activeHeading }) => {
               placeholder="Search Product..."
               value={searchTerm}
               onChange={handleSearchChange}
+              onBlur={() => { setTimeout(() => setSearchData([]), 1000) }}
               className="h-[40px] w-full pl-4 pr-2 border-[#3957db] border-[2px] rounded-md"
             />
             <AiOutlineSearch
@@ -156,12 +161,12 @@ const Header = ({ activeHeading }) => {
             />
 
             {searchData && searchData.length !== 0 ? (
-              <div className="absolute min-h-[30vh] bg-slate-50 shadow-sm-2 z-[9] p-4">
+              <div className="absolute w-full  bg-slate-50 shadow-sm-2 z-[9] p-4">
                 {searchData &&
                   searchData.map((i) => {
                     return (
                       <Link to={`/product/${i._id}`} key={i._id}>
-                        <div className="w-full flex items-start-py-3">
+                        <div className="w-full flex items-start-py-3 mt-2">
                           <img
                             src={`${backend_url}${i.images[0]}`}
                             alt=""
@@ -305,7 +310,7 @@ const Header = ({ activeHeading }) => {
                 />
               </div>
 
-              <div className="my-8 w-[92%] m-auto h-[40px relative]">
+              <div className="my-8 w-[10%] m-auto h-[40px relative]">
                 <input
                   type="search"
                   placeholder="Search Product..."
@@ -314,18 +319,19 @@ const Header = ({ activeHeading }) => {
                   onChange={handleSearchChange}
                 />
                 {searchData && (
-                  <div className="absolute bg-[#fff] z-10 shadow w-full left-0 p-3">
-                    {searchData.map((i) => {
+                  <div className="absolute bg-[#fff] z-10 shadow w-full left-0 p-3"
+                  >
+                    {searchData.map((i, index) => {
                       const d = i.name;
 
                       const Product_name = d.replace(/\s+/g, '-');
                       return (
-                        <Link to={`/product/${Product_name}`}>
-                          <div className="flex items-center">
+                        <Link key={index} to={`/product/${Product_name}`}>
+                          <div className="flex items-center" >
                             <img
                               src={i.image_Url[0].url}
                               alt=""
-                              className="w-[50px] mr-2"
+                              className="w-full mr-2"
                             />
                             <h5>{i.name}</h5>
                           </div>
