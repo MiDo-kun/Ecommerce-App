@@ -135,7 +135,6 @@ router.post(
       }
 
       const shop = await Shop.findOne({ email }).select('_id, password');
-      console.log(shop);
 
       if (!shop) {
         return next(new ErrorHandler("User doesn't exists!", 400));

@@ -10,16 +10,16 @@ import { getAllEvents } from './redux/actions/event';
 import { getAllProducts } from './redux/actions/product';
 import { loadSeller, loadUser } from './redux/actions/user';
 import Store from './redux/store';
-import {
-  AdminDashboardEvents,
-  AdminDashboardOrders,
-  AdminDashboardPage,
-  AdminDashboardProducts,
-  AdminDashboardSellers,
-  AdminDashboardUsers,
-  AdminDashboardWithdraw,
-} from './routes/AdminRoutes';
-import ProtectedAdminRoute from './routes/ProtectedAdminRoute';
+// import {
+//   AdminDashboardEvents,
+//   AdminDashboardOrders,
+//   AdminDashboardPage,
+//   AdminDashboardProducts,
+//   AdminDashboardSellers,
+//   AdminDashboardUsers,
+//   AdminDashboardWithdraw,
+// } from './routes/AdminRoutes';
+// import ProtectedAdminRoute from './routes/ProtectedAdminRoute';
 import ProtectedRoute from './routes/ProtectedRoute';
 import {
   ActivationPage,
@@ -27,7 +27,7 @@ import {
   CheckoutPage,
   EventsPage,
   FAQPage,
-  HomePage,
+  // HomePage,
   LoginPage,
   OrderDetailsPage,
   OrderSuccessPage,
@@ -94,7 +94,7 @@ const App = () => {
       )}
       <Routes>
         {/* <Route path="/" element={<HomePage />} /> */}
-        <Route path="/" element={<ProductsPage/>} />
+        <Route path="/" element={<ProductsPage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/sign-up" element={<SignupPage />} />
 
@@ -117,7 +117,8 @@ const App = () => {
         <Route path="/order/success" element={<OrderSuccessPage />} />
         <Route
           path="/profile"
-          element={ <ProtectedRoute>
+          element={
+            <ProtectedRoute>
               <ProfilePage />
             </ProtectedRoute>
           }
@@ -148,7 +149,7 @@ const App = () => {
         />
         <Route path="/shop/preview/:id" element={<ShopPreviewPage />} />
         {/* shop Routes */}
-        <Route path="/shop-create" element={<ShopCreatePage />} />
+        {/* <Route path="/shop-create" element={<ShopCreatePage />} /> */}
         <Route path="/shop-login" element={<ShopLoginPage />} />
         <Route
           path="/shop/:id"
@@ -255,13 +256,13 @@ const App = () => {
             </SellerProtectedRoute>
           }
         />
-        {/* Admin Routes */}
+        {/* Admin Routes
         <Route
           path="/admin/dashboard"
           element={
-            // <ProtectedAdminRoute>
-            <AdminDashboardPage />
-            // </ProtectedAdminRoute>
+            <ProtectedAdminRoute>
+              <AdminDashboardPage />
+            </ProtectedAdminRoute>
           }
         />
         <Route
@@ -311,7 +312,7 @@ const App = () => {
               <AdminDashboardWithdraw />
             </ProtectedAdminRoute>
           }
-        />
+        /> */}
       </Routes>
       <ToastContainer
         position="bottom-center"

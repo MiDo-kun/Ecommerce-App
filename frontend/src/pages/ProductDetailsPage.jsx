@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useParams, useSearchParams } from 'react-router-dom';
-import Footer from '../components/Layout/Footer';
+// import Footer from '../components/Layout/Footer';
 import Header from '../components/Layout/Header';
 import ProductDetails from '../components/Products/ProductDetails';
 import SuggestedProduct from '../components/Products/SuggestedProduct';
@@ -22,10 +22,10 @@ const ProductDetailsPage = () => {
       const data = allProducts && allProducts.find((i) => i._id === id);
       setData(data);
     }
-  }, [allProducts, allEvents]);
+  }, [allProducts, allEvents, id]);
 
   return (
-    <div>
+    <div className="max-w-[1366px] mx-auto">
       <Header />
       <ProductDetails data={data} />
       {!eventData && <>{data && <SuggestedProduct data={data} />}</>}

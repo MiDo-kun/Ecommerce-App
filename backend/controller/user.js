@@ -50,7 +50,7 @@ router.post('/create-user', upload.single('file'), async (req, res, next) => {
       });
       res.status(201).json({
         success: true,
-        message: `please check your email:- ${user.email} to activate your account!`,
+        message: `Please check your email:- ${user.email} to activate your account!`,
       });
     } catch (error) {
       return next(new ErrorHandler(error.message, 500));
@@ -63,7 +63,7 @@ router.post('/create-user', upload.single('file'), async (req, res, next) => {
 // create activation token
 const createActivationToken = (user) => {
   return jwt.sign(user, process.env.ACTIVATION_SECRET, {
-    expiresIn: '5m',
+    expiresIn: '10m',
   });
 };
 
@@ -96,7 +96,10 @@ router.post(
         password,
       });
 
-      sendToken(user, 201, res);
+      res.status(201).json({
+        success: true,
+        token: user.getJwtToken()
+      });
     } catch (error) {
       return next(new ErrorHandler(error.message, 500));
     }
@@ -186,7 +189,6 @@ router.put(
     try {
       const { email, password, phoneNumber, name } = req.body;
       const userId = req.user._id;
-      console.log(userId)
       const user = await User.findById(userId).select('password');
 
       if (!user) {
@@ -299,8 +301,6 @@ router.delete(
     try {
       const userId = req.user._id;
       const addressId = req.params.id;
-
-      console.log(addressId);
 
       await User.updateOne(
         {

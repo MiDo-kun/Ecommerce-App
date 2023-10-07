@@ -61,8 +61,8 @@ const ProfileContent = ({ active }) => {
       .put(`${server}/user/update-avatar`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
-          'Authorization': `Bearer ${userToken}`
-        }
+          Authorization: `Bearer ${userToken}`,
+        },
       })
       .then((response) => {
         dispatch(loadUser());
@@ -116,7 +116,11 @@ const ProfileContent = ({ active }) => {
                 <div className=" w-[100%] 800px:w-[50%]">
                   <label className="block pb-2">Email Address</label>
                   <input
-                    type="text" className={`${styles.input} !w-[95%] mb-1 800px:mb-0`} required value={email} onChange={(e) => setEmail(e.target.value)}
+                    type="text"
+                    className={`${styles.input} !w-[95%] mb-1 800px:mb-0`}
+                    required
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
                   />
                 </div>
               </div>
@@ -260,7 +264,7 @@ const AllOrders = () => {
       row.push({
         id: item._id,
         itemsQty: item.cart.length,
-        total: 'US$ ' + item.totalPrice,
+        total: '₱ ' + item.totalPrice,
         status: item.status,
       });
     });
@@ -610,7 +614,7 @@ const Address = () => {
                       className="w-[95%] border h-[40px] rounded-[5px]"
                     >
                       <option value="" className="block border pb-2">
-                        choose your country
+                        Choose your country
                       </option>
                       {Country &&
                         Country.getAllCountries().map((item) => (
@@ -635,7 +639,7 @@ const Address = () => {
                       className="w-[95%] border h-[40px] rounded-[5px]"
                     >
                       <option value="" className="block border pb-2">
-                        choose your city
+                        Choose your city
                       </option>
                       {State &&
                         State.getStatesOfCountry(country).map((item) => (

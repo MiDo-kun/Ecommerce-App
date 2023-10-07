@@ -63,8 +63,8 @@ userSchema.pre('save', async function (next) {
   if (!this.isModified('password')) {
     next();
   }
-
-  this.password = await bcrypt.hash(this.password, process.env.SALT);
+  const salt = bcrypt.genSaltSync(10);
+  this.password = bcrypt.hashSync(this.password, salt);
 });
 
 // jwt token
@@ -76,7 +76,7 @@ userSchema.methods.getJwtToken = function () {
 
 // compare password
 userSchema.methods.comparePassword = async function (enteredPassword) {
-  return await bcrypt.compare(enteredPassword, this.password);
+  return bcrypt.compareSync(enteredPassword, this.password);
 };
 
 module.exports = mongoose.model('User', userSchema);

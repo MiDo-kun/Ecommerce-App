@@ -51,6 +51,7 @@ export const getAllProductsShop = (id) => async (dispatch) => {
 
 // delete product of a shop
 export const deleteProduct = (id) => async (dispatch) => {
+  const sellerToken = localStorage.getItem('seller_token');
   try {
     dispatch({
       type: 'deleteProductRequest',
@@ -59,7 +60,9 @@ export const deleteProduct = (id) => async (dispatch) => {
     const { data } = await axios.delete(
       `${server}/product/delete-shop-product/${id}`,
       {
-        withCredentials: true,
+        headers: {
+          Authorization: `Bearer ${sellerToken}`,
+        },
       },
     );
 

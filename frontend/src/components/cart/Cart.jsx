@@ -51,7 +51,7 @@ const Cart = ({ setOpenCart }) => {
                 />
               </div>
               {/* Item length */}
-              <div className={`${styles.noramlFlex} p-4`}>
+              <div className={`${styles.noramlFlex} p-4 pb-0`}>
                 <IoBagHandleOutline size={25} />
                 <h5 className="pl-2 text-[20px] font-[500]">
                   {cart && cart.length} items
@@ -73,14 +73,14 @@ const Cart = ({ setOpenCart }) => {
               </div>
             </div>
 
-            <div className="px-5 mb-3">
+            <div className="px-5 my-3">
               {/* checkout buttons */}
               <Link to="/checkout">
                 <div
                   className={`h-[45px] flex items-center justify-center w-[100%] bg-[#e44343] rounded-[5px]`}
                 >
                   <h1 className="text-[#fff] font-Poppins text-[18px] font-[600]">
-                    Checkout Now (₱{totalPrice})
+                    Checkout Now (₱{totalPrice.toFixed(2)})
                   </h1>
                 </div>
               </Link>
@@ -113,41 +113,50 @@ const CartSingle = ({ data, quantityChangeHandler, removeFromCartHandler }) => {
   };
 
   return (
-    <div className="border-b p-4">
-      <div className="w-full flex items-center">
-        <div>
-          <div
-            className={`bg-[#e44343] border border-[#e4434373] rounded-full w-[25px] h-[25px] ${styles.noramlFlex} justify-center cursor-pointer`}
-            onClick={() => increment(data)}
-          >
-            <HiPlus size={18} color="#fff" />
-          </div>
-          <span className="pl-[10px]">{data.qty}</span>
-          <div
-            className="bg-[#a7abb14f] rounded-full w-[25px] h-[25px] flex items-center justify-center cursor-pointer"
-            onClick={() => decrement(data)}
-          >
-            <HiOutlineMinus size={16} color="#7d879c" />
-          </div>
+    <div className="border-b p-4 pb-0">
+      <div className="w-full">
+        <div className="flex justify-end">
+          <RxCross1
+            className="cursor-pointer "
+            onClick={() => removeFromCartHandler(data)}
+          />
         </div>
-        <img
-          src={`${backend_url}${data?.images[0]}`}
-          alt=""
-          className="w-[130px] h-min ml-2 mr-2 rounded-[5px]"
-        />
+        <div className="w-full">
+          <img
+            src={`${backend_url}${data?.images[0]}`}
+            alt=""
+            className="w-[130px] h-min my-2 mx-auto rounded-[5px]"
+          />
+
+        </div>
         <div className="pl-[5px]">
           <h1>{data.name}</h1>
           <h4 className="font-[400] text-[15px] text-[#00000082]">
-            ₱{data.discountPrice} * {value}
+            ₱{(data.discountPrice).toFixed(2)} * {value}
           </h4>
-          <h4 className="font-[600] text-[17px] pt-[3px] text-[#d02222] font-Roboto">
-            ₱{totalPrice}
-          </h4>
+          <div className='flex justify-between mb-3'>
+            <h4 className="font-[600] text-[17px] pt-[3px] text-[#d02222] font-Roboto">
+              ₱{totalPrice.toFixed(2)}
+            </h4>
+            <div className='flex gap-3'>
+              <div
+                className={`bg-[#e44343] border border-[#e4434373] rounded-full w-[25px] h-[25px] ${styles.noramlFlex} justify-center cursor-pointer`}
+                onClick={() => increment(data)}
+              >
+                <HiPlus size={18} color="#fff" />
+              </div>
+              <span className="px-[1px]">{data.qty}</span>
+              <div
+                className="bg-[#a7abb14f] rounded-full w-[25px] h-[25px] flex items-center justify-center cursor-pointer"
+                onClick={() => decrement(data)}
+              >
+                <HiOutlineMinus size={16} color="#7d879c" />
+              </div>
+            </div>
+          </div>
+
         </div>
-        <RxCross1
-          className="cursor-pointer"
-          onClick={() => removeFromCartHandler(data)}
-        />
+
       </div>
     </div>
   );

@@ -13,7 +13,7 @@ const PaymentPage = () => {
       <Payment />
       <br />
       <br />
-      <Footer />
+      {/* <Footer /> */}
     </div>
   );
 };

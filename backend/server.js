@@ -3,13 +3,6 @@ require('dotenv').config({
   path: './config/.env',
 });
 
-require('dotenv').config({
-  path:
-    process.env.NODE_ENV === 'PRODUCTION'
-      ? './config/.env.prod'
-      : './config/.env.local',
-});
-
 const app = require('./app');
 const connectDatabase = require('./db/Database');
 

@@ -26,7 +26,7 @@ const Wishlist = ({ setOpenWishlist }) => {
 
   return (
     <div className="fixed top-0 left-0 w-full bg-[#0000004b] h-screen z-10">
-      <div className="fixed top-0 right-0 h-full w-[80%] overflow-y-scroll 800px:w-[25%] bg-white flex flex-col justify-between shadow-sm">
+      <div className="fixed top-0 right-0 h-full w-[80%] 800px:w-[25%] bg-white flex flex-col overflow-y-scroll justify-between shadow-sm">
         {wishlist && wishlist.length === 0 ? (
           <div className="w-full h-screen flex items-center justify-center">
             <div className="flex w-full justify-end pt-5 pr-5 fixed top-3 right-3">
@@ -49,7 +49,7 @@ const Wishlist = ({ setOpenWishlist }) => {
                 />
               </div>
               {/* Item length */}
-              <div className={`${styles.noramlFlex} p-4`}>
+              <div className={`${styles.noramlFlex} p-4 pb-0`}>
                 <AiOutlineHeart size={25} />
                 <h5 className="pl-2 text-[20px] font-[500]">
                   {wishlist && wishlist.length} items
@@ -58,7 +58,7 @@ const Wishlist = ({ setOpenWishlist }) => {
 
               {/* cart Single Items */}
               <br />
-              <div className="w-full border-t">
+              <div className="w-full overflow-y-auto">
                 {wishlist &&
                   wishlist.map((i, index) => (
                     <CartSingle
@@ -82,28 +82,28 @@ const CartSingle = ({ data, removeFromWishlistHandler, addToCartHandler }) => {
   const totalPrice = data.discountPrice * value;
 
   return (
-    <div className="border-b p-4">
-      <div className="w-full 800px:flex items-center">
+    <div className="p-4 pt-0">
+      <div className="flex justify-end">
         <RxCross1
-          className="cursor-pointer 800px:mb-['unset'] 800px:ml-['unset'] mb-2 ml-2"
+          className="cursor-pointer ml-0"
           onClick={() => removeFromWishlistHandler(data)}
         />
-        <img
-          src={`${backend_url}${data?.images[0]}`}
-          alt=""
-          className="w-[130px] h-min ml-2 mr-2 rounded-[5px]"
-        />
+      </div>
+      <img
+        src={`${backend_url}${data?.images[0]}`}
+        alt="image"
+        className="w-[130px] h-min mx-auto rounded-[5px]"
+      />
 
-        <div className="pl-[5px]">
-          <h1>{data.name}</h1>
+      <div className="pl-[5px]">
+        <h1 className='my-2'>{data.name}</h1>
+        <div className="flex justify-between">
           <h4 className="font-[600] pt-3 800px:pt-[3px] text-[17px] text-[#d02222] font-Roboto">
-            US${totalPrice}
+            ₱{totalPrice}
           </h4>
-        </div>
-        <div>
           <BsCartPlus
             size={20}
-            className="cursor-pointer"
+            className="cursor-pointer mt-1"
             tile="Add to cart"
             onClick={() => addToCartHandler(data)}
           />

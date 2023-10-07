@@ -39,6 +39,10 @@ const ProductDetails = ({ data }) => {
   }, [data, wishlist]);
 
   const incrementCount = () => {
+    if (data.stock <= count) {
+      return toast.error('Maximum Stock Reached!');
+    }
+
     setCount(count + 1);
   };
 
@@ -126,9 +130,10 @@ const ProductDetails = ({ data }) => {
                 <div className="w-full flex">
                   {data &&
                     data.images.map((i, index) => (
-                      <div
-                        className={`${select === 0 ? 'border' : 'null'
-                          } cursor-pointer`}
+                      <div key={index}
+                        className={`${
+                          select === 0 ? 'border' : 'null'
+                        } cursor-pointer`}
                       >
                         <img
                           src={`${backend_url}${i}`}
@@ -139,25 +144,27 @@ const ProductDetails = ({ data }) => {
                       </div>
                     ))}
                   <div
-                    className={`${select === 1 ? 'border' : 'null'
-                      } cursor-pointer`}
+                    className={`${
+                      select === 1 ? 'border' : 'null'
+                    } cursor-pointer`}
                   ></div>
                 </div>
               </div>
               <div className="w-full 800px:w-[50%] pt-5">
                 <h1 className={`${styles.productTitle}`}>{data.name}</h1>
-                <p>{data.description}</p>
+                {/* <p>{data.description}</p> */}
                 <div className="flex pt-3">
                   <h4 className={`${styles.productDiscountPrice}`}>
-                    ₱
-                    {data.discountPrice}
+                    ₱{data.discountPrice}
                   </h4>
                   <h3 className={`${styles.price}`}>
-                    {data.originalPrice ? '₱' + data.originalPrice  : null}
+                    {data.originalPrice ? '₱' + data.originalPrice : null}
                   </h3>
                 </div>
 
-                <div className="flex items-center mt-12 justify-between pr-3">
+                <p className='mt-5'> <strong>Stock:</strong> <span className='text-red-600'>{data.stock}</span></p>
+                <div className="flex items-center mt-2 justify-between pr-3">
+
                   <div>
                     <button
                       className="bg-gradient-to-r from-teal-400 to-teal-500 text-white font-bold px-4 py-2 shadow-lg hover:opacity-75 transition duration-300 ease-in-out"
@@ -209,7 +216,7 @@ const ProductDetails = ({ data }) => {
                     onClick={handleMessageSubmit}
                   >
                     <span className="text-white flex items-center">
-                      Send Message <AiOutlineMessage  className="ml-2"/>
+                      Send Message <AiOutlineMessage className="ml-2" />
                     </span>
                   </div>
                 </div>
@@ -320,7 +327,7 @@ const ProductDetailsInfo = ({
         <div className="w-full min-h-[40vh] flex flex-col items-center py-3 overflow-y-scroll">
           {data &&
             data.reviews.map((item, index) => (
-              <div className="w-full flex my-2">
+              <div className="w-full flex my-2" key={index}>
                 <img
                   src={`${backend_url}/${item.user.avatar}`}
                   alt=""

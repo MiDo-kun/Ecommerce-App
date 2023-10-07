@@ -5,7 +5,7 @@ import Footer from '../components/Layout/Footer';
 
 const CheckoutPage = () => {
   return (
-    <div>
+    <div className="max-w-[1366px] mx-auto">
       <Header />
       <br />
       <br />

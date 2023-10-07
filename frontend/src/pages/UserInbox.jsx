@@ -50,8 +50,8 @@ const UserInbox = () => {
           `${server}/conversation/get-all-conversation-user/${user?._id}`,
           {
             headers: {
-              'Authorization': `Bearer ${userToken}`
-            }
+              Authorization: `Bearer ${userToken}`,
+            },
           },
         );
 
@@ -210,9 +210,9 @@ const UserInbox = () => {
       {!open && (
         <>
           <Header />
-          <h1 className="text-center text-[30px] py-3 font-Poppins">
+          {/* <h1 className="text-center text-[30px] py-3 font-Poppins">
             All Messages
-          </h1>
+          </h1> */}
           {/* All messages list */}
           {conversations &&
             conversations.map((item, index) => (
@@ -285,8 +285,9 @@ const MessageList = ({
 
   return (
     <div
-      className={`w-full flex p-3 px-3 ${active === index ? 'bg-[#00000010]' : 'bg-transparent'
-        }  cursor-pointer`}
+      className={`w-full flex p-3 px-3 ${
+        active === index ? 'bg-[#00000010]' : 'bg-transparent'
+      }  cursor-pointer`}
       onClick={(e) =>
         setActive(index) ||
         handleClick(data._id) ||
@@ -357,9 +358,11 @@ const SellerInbox = ({
       <div className="px-3 h-[75vh] py-3 overflow-y-scroll">
         {messages &&
           messages.map((item, index) => (
-            <div key={index}
-              className={`flex w-full my-2 ${item.sender === sellerId ? 'justify-end' : 'justify-start'
-                }`}
+            <div
+              key={index}
+              className={`flex w-full my-2 ${
+                item.sender === sellerId ? 'justify-end' : 'justify-start'
+              }`}
               ref={scrollRef}
             >
               {item.sender !== sellerId && (
@@ -378,8 +381,9 @@ const SellerInbox = ({
               {item.text !== '' && (
                 <div>
                   <div
-                    className={`w-max p-2 rounded ${item.sender === sellerId ? 'bg-[#000]' : 'bg-[#38c776]'
-                      } text-[#fff] h-min`}
+                    className={`w-max p-2 rounded ${
+                      item.sender === sellerId ? 'bg-[#000]' : 'bg-[#38c776]'
+                    } text-[#fff] h-min`}
                   >
                     <p>{item.text}</p>
                   </div>

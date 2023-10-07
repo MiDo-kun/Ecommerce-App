@@ -27,7 +27,7 @@ const ActivationPage = () => {
             setError(true);
           })
           .finally(() => {
-            setTimeout(() => navigate('/login'), 2000);
+            // setTimeout(() => navigate('/login'), 2000);
           });
       };
       sendRequest();

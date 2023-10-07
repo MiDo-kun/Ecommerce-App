@@ -24,10 +24,11 @@ const AllProducts = () => {
   };
 
   const columns = [
-    { 
-      field: 'id', 
-      headerName: 'Product Id', 
-      minWidth: 150, flex: 1 
+    {
+      field: 'id',
+      headerName: 'Product Id',
+      minWidth: 150,
+      flex: 1,
     },
     {
       field: 'name',
@@ -46,7 +47,7 @@ const AllProducts = () => {
       headerName: 'Stock',
       type: 'number',
       minWidth: 80,
-      flex: .7,
+      flex: 0.7,
     },
 
     {
@@ -101,7 +102,7 @@ const AllProducts = () => {
       row.push({
         id: item._id,
         name: item.name,
-        price: 'US$ ' + item.discountPrice,
+        price: '₱ ' + item.discountPrice,
         Stock: item.stock,
         sold: item?.sold_out,
       });
