@@ -29,7 +29,7 @@ You can view the live website [here](https://online-commerce-app-prod.netlify.ap
 
 ## What I've Learned
 
-- Through this project, I gained the following knowledge and skills:
+Through this project, I gained the following knowledge and skills:
 - Proficiency in Redux state management.
 - Secure password hashing (salting).
 - Image uploading to Cloudinary.
