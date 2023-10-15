@@ -1,85 +1,77 @@
-# Project Name
+# E-Commerce App Prototype 
 
-e.g.
+This project entails the development of an online E-Commerce prototype application, offering users a platform to purchase a variety of products. The application is built using the MERN (MongoDB, Express, React, NodeJS) stack with a REST API architectural implementation.
 
-Project Name - **Dev Blogs Front-End**
+![background image](https://lh3.googleusercontent.com/pw/ADCreHeVjsV8JxN0e8PpubMEkFj5r48syM0BPKKZD6cprhv3xDL2xCF6P7JZFg5GFOPM4FXNHJf75Rg0ujQqYocDFleDV1BL79a4iBZoBiEAi_LI60GQDTtCohZMdf-CqxsIZJ6vPicn0mBEamrj9m5dHT_X=w1348-h661-s-no)
 
-## Project Description
+You can view the live website [here](https://online-commerce-app-prod.netlify.app/).
 
-> Your project Description here
+**Note**: Note: The codebase has been refactored and enhanced to ensure a functional version of the repository. Key improvements include optimizing user interface responsiveness, utilizing local storage for JWT token storage, and reconfiguring relationships between Admin, User, Shop Owner, etc.## Main Objective/s
 
-e.g.
+## The main objectives of this project were to:
 
-This project is a blog site web application that focuses on providing visitors with simple yet informative blog posts. The front-end design is minimalist and prioritizes simplicity and ease of use, allowing users to access and read blogs quickly and efficiently. The application was built using Vite, a fast and efficient build tool for modern web development, along with React, a popular JavaScript library for building user interfaces. The Tailwind CSS framework was also used to ensure a streamlined development process.
+1. Understand and refactor the existing codebase, encompassing concepts like RESTful APIs, JWT Authentication, Web Sockets, and state management with Redux.
+2. Develop a mind map to facilitate efficient navigation and comprehension of the application.
+3. Submit a pull request to the original repository, presenting significant improvements to the codebase.
 
-Note: Use image or gif as preview here.
+## Key Features
 
-You can view the live website [here](your-user-name/your-repo-name.git).
-
-**Note**: Additional info goes here.
-
-## Main Objective/s
-
-> The goals/objectives/motivation of the project here.
-
-e.g.
-
-The main objectives of this project were to:
-
-Document my learning journey and share knowledge with readers by providing informative and direct-to-the-point information. Through this blog site web application, I aim to help others learn new concepts and stay updated on relevant topics in a simple and efficient manner. Additionally, this project allows me to practice my development skills and expand my knowledge in web development.
-
-## Key Feature/s
-
-> Specific features of the project. Preferrably use a bullet points in here.
-
-e.g.
-
-The `application name` offers the following key features:
-
-- *Add new blog posts:* Users can create and publish new blog posts through a simple and intuitive interface.
-- *Edit added blog posts:* Users can make changes to existing blog posts, including updating the content, adding images, or modifying the formatting.
-- *Delete blog posts:* Users can delete blog posts that are no longer needed, removing them from the platform.
-- *View blog posts through responsive design:* The platform is designed to be responsive to different screen sizes, ensuring that users can access and read content on any device.
-- *User authentication:* Implement a user authentication system to ensure that only authorized users can perform actions such as creating, editing, and deleting blog posts.
+- User and Admin Authentication: Users and administrators can securely authenticate themselves.
+- Wishlist and Cart Functionality: Users can add items to their wishlist and cart for easy tracking and purchasing.
+- User and Admin Profiles: Users and administrators have dedicated profiles with personalized information.
+- Browse Products: Users can explore a wide range of products available on the platform.
+- Payment Page using Stripe: Secure and seamless payment processing via the Stripe payment gateway.
+- Online Messaging with Web Sockets: Real-time messaging functionality enabled through Web Sockets.
+- Stateless Authentication using JWT: Implementation of stateless authentication using JSON Web Tokens (JWT).
+- REST API Implementation with Express.js: Utilization of Express.js for implementing a RESTful API.
+- Image Upload with Cloudinary: Integration of Cloudinary for smooth image uploading.
+- State Management with Redux Toolkit: Effective state management accomplished using Redux Toolkit.
 
 ## What I've Learned
 
-> A short list of description on what you've learned in the process of making the project.
-
-e.g.
-
-Through this project, I gained the following knowledge and skills:
-
-- How to use React hooks such as useState, useEffect, useContext to manage state and side effects, respectively.
-- How to target specific media queries for responsive design in CSS.
-- How to use higher-order functions such as .map() and .filter() to dynamically generate components, improving code reusability and modularity.
-- How to use the React Router Dom library to enable client-side routing and create a seamless user experience.
-- How to store and authenticate cookies for user authentication and security in web development.
-- How to use Prettier and ESLint for code formatting and consistent code conventions on the project.
-
-Overall, this project provided me with a solid foundation in modern web development using React and related technologies. The skills and knowledge I gained will be useful in future web development projects.
+- Through this project, I gained the following knowledge and skills:
+- Proficiency in Redux state management.
+- Secure password hashing (salting).
+- Image uploading to Cloudinary.
+- Role assignment for specific individuals within the application.
+- Integration of the Stripe payment gateway.
+- Sending emails via SMTP.
+- Displaying app notification status using React Lottie.
+- Building a comprehensive mind map to enhance accessibility and information retrieval.
 
 ## Quick Installation
 
-> A quick installtion guide for the project.
-
-e.g.
-
 1. Clone the repository to your local machine:
 
-   `git clone https://github.com/your-user-name/your-repo-name.git`
+   `git clone https://github.com/MiDo-kun/Ecommerce-App.git`
 
-2. Navigate to the project directory:
+2. Navigate to each folder and install the dependencies for every folder - frontend, backend and socket:
 
-   `cd your-repository`
+   - Frontend: 
 
-3. Install the dependencies:
+      ```cd frontend && npm install```
 
-   `npm install`
+   - Backend: 
 
-4. Start the development server:
+      ```cd backend && npm install```
 
-   `npm run dev`
+   - Socket: 
+
+      ```cd socket && npm install```
+
+3. Start the development server:
+
+   - On the frontend
+
+      `npm run dev`
+
+   - On the backend
+
+      `npm run dev`
+
+   - On the socket
+
+      `npm run dev`
 
 Open your web browser and navigate to [http://localhost:5172](http://localhost:5172) to view the website.
 
@@ -91,7 +83,7 @@ Contributions are welcome! If you want to contribute to the project, please foll
 
 2. Clone the repository to your local machine:
 
-   `git clone https://github.com/your-user-name/your-repo-name.git`
+   `git clone https://github.com/MiDo-kun/Ecommerce-App.git`
 
 3. Create a new branch for your changes:
 
